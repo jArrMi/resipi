@@ -13,6 +13,10 @@ import androidx.lifecycle.Observer
 import com.dartharrmi.resipi.ui.livedata.Event
 import com.dartharrmi.resipi.ui.views.LoadingView
 
+/**
+ * Base [AppCompatActivity] for the application, implements the base contract for the views and does
+ * the initialization of the data binding.
+ */
 abstract class ResipiActivity<DB : ViewDataBinding> : AppCompatActivity(), IBaseView {
 
     // Data binding

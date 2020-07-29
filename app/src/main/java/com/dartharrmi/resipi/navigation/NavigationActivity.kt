@@ -5,7 +5,7 @@ import com.dartharrmi.resipi.base.ResipiActivity
 import com.dartharrmi.resipi.databinding.ActivityNavigationBinding
 
 /**
- *
+ * Activity for the Navigation Component.
  */
 class NavigationActivity : ResipiActivity<ActivityNavigationBinding>() {
     override fun getLayoutId() = R.layout.activity_navigation
