@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dest_recipe_list">
 
+    <fragment
+        android:id="@+id/dest_recipe_list"
+        android:name="com.dartharrmi.resipi.ui.recipe_list.RecipeListFragment"
+        tools:layout="@layout/fragment_recipe_list" />
 </navigation>
