@@ -1,8 +1,8 @@
 package com.dartharrmi.resipi.webservice.api
 
-import retrofit2.http.GET
-import retrofit2.http.Url
-
+/**
+ * Interface for defining the methods to communicate with the Spoonacular API.
+ */
 interface ISpoonacularApi {
 
 }

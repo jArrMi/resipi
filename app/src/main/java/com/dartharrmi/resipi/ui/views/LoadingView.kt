@@ -10,7 +10,7 @@ import com.dartharrmi.resipi.ui.livedata.Event
 import com.dartharrmi.resipi.ui.livedata.Status
 
 /**
- *
+ * A custom loading view that appears at full-screen.
  */
 class LoadingView : FrameLayout {
 
