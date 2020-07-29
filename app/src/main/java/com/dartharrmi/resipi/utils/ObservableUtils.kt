@@ -1,0 +1,53 @@
+package com.dartharrmi.resipi.utils
+
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
+
+inline fun <reified T> Gson.fromJson(json: String): T =
+    this.fromJson<T>(json, object : TypeToken<T>() {}.type)
+
+/**
+ * Default subscriber for UI observables
+ */
+inline fun <T> Observable<T>.defaultUISubscriber(
+    crossinline onNext: (data: T) -> Unit,
+    compositeDisposable: CompositeDisposable? = null
+): Disposable {
+    return subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({
+            onNext(it)
+        }, Throwable::printStackTrace).also {
+            compositeDisposable?.add(it)
+        }
+}
+
+/**
+ * Default subscriber for UI observables
+ */
+fun <T> Observable<T>.applyIoMain(): Observable<T> = subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
+
+/**
+ * Default subscriber for UI observables
+ */
+fun <T> Single<T>.applyIoMain(): Single<T> = subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
+
+/**
+ * Default subscriber for UI observables
+ */
+fun Completable.applyIoMain(): Completable = subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
+
+/**
+ * Default subscriber for UI observables
+ */
+fun Disposable.addTo(compositeDisposable: CompositeDisposable) = compositeDisposable.add(this)

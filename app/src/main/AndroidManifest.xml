@@ -1,0 +1,41 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dartharrmi.resipi">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".base.ResipiApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".navigation.NavigationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!--<intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="@string/deep_link_host_email_verification"
+                    android:scheme="@string/deep_link_scheme" />
+
+                <data
+                    android:host="@string/deep_link_host_recover_pin"
+                    android:scheme="@string/deep_link_scheme" />
+            </intent-filter>-->
+        </activity>
+    </application>
+</manifest>
