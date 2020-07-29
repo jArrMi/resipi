@@ -1,0 +1,26 @@
+buildscript {
+    apply from: rootProject.file("scripts/versions.gradle")
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$android_tools_gradle_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.gms:google-services:$google_services_version"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_safe_arg_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://oss.jfrog.org/libs-snapshot" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
