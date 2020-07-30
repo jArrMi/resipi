@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Type
 
@@ -32,6 +33,7 @@ object ResipiNetwork {
         return builder.apply {
             baseUrl(baseUrl)
             client(okHttpClient)
+            addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             addConverterFactory(UnitConverterFactory)
             addConverterFactory(GsonConverterFactory.create())
         }.build()
