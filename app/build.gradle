@@ -20,6 +20,7 @@ android {
         multiDexEnabled true
 
         resValue "string", "spoonacular_base_url", "https://api.spoonacular.com/"
+        resValue "string", "spoonacular_api_key", "14b66f85ec914fb788a6d10046eeb614"
     }
 
     buildTypes {
