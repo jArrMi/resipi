@@ -7,6 +7,6 @@
 
     <fragment
         android:id="@+id/dest_recipe_list"
-        android:name="com.dartharrmi.resipi.ui.recipe_list.RecipeListFragment"
+        android:name="com.dartharrmi.resipi.ui.recipe_list.RecipesListFragment"
         tools:layout="@layout/fragment_recipe_list" />
 </navigation>
