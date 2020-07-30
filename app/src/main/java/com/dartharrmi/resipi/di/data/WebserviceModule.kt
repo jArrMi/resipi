@@ -1,4 +1,4 @@
-package com.dartharrmi.resipi.di
+package com.dartharrmi.resipi.di.data
 
 import com.dartharrmi.resipi.webservice.utils.IPublicOkHttpClient
 import com.dartharrmi.resipi.webservice.utils.PublicOkHttpClient
