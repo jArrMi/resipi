@@ -4,12 +4,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E9E9ED">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecipesList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layoutAnimation="@anim/layout_anim_item_fall_down"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
