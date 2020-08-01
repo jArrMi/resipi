@@ -1,6 +1,8 @@
 package com.dartharrmi.resipi.ui.recipe_list.adapter
 
 import android.content.Context
+import android.text.Html
+import android.text.Spanned
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
@@ -54,26 +56,32 @@ class RecipesAdapterAdapter(
 
         expandItem(holder, expand = currentRecipe == expandedRecipe, animate = false)
         holder.getDataBinding().root.card_container.setOnClickListener {
-            if (expandedRecipe == null) {
-                // Expand the recipe
-                expandItem(holder, expand = true, animate = true)
-                expandedRecipe = currentRecipe
-            } else if (expandedRecipe == currentRecipe) {
-                // Collapse the recipe
-                expandItem(holder, expand = false, animate = true)
-                expandedRecipe = null
-            } else {
-                // Collapse any other view expanded
-                val expandedRecipePosition = recipes.indexOf(expandedRecipe!!)
-                val previousViewHolder = recyclerView.findViewHolderForAdapterPosition(expandedRecipePosition) as?
-                        BaseViewHolder
-                if (previousViewHolder != null) {
-                    expandItem(previousViewHolder, expand = false, animate = true)
+            when (expandedRecipe) {
+                null -> {
+                    // Expand the recipe
+                    expandItem(holder, expand = true, animate = true)
+                    expandedRecipe = currentRecipe
                 }
 
-                // Expand the new view clicked
-                expandItem(holder, expand = true, animate = true)
-                expandedRecipe = currentRecipe
+                currentRecipe -> {
+                    // Collapse the recipe
+                    expandItem(holder, expand = false, animate = true)
+                    expandedRecipe = null
+                }
+
+                else -> {
+                    // Collapse any other view expanded
+                    val expandedRecipePosition = recipes.indexOf(expandedRecipe!!)
+                    val previousViewHolder = recyclerView.findViewHolderForAdapterPosition(expandedRecipePosition) as?
+                            BaseViewHolder
+                    if (previousViewHolder != null) {
+                        expandItem(previousViewHolder, expand = false, animate = true)
+                    }
+
+                    // Expand the new view clicked
+                    expandItem(holder, expand = true, animate = true)
+                    expandedRecipe = currentRecipe
+                }
             }
         }
         holder.bind(viewModel)
@@ -84,7 +92,7 @@ class RecipesAdapterAdapter(
 
         // Calculate values for originalHeight and expandedHeight.
         if (expandedHeight < 0) {
-            // expandedHeight = 0 // so that this block is only called once
+            expandedHeight = 0
 
             holder.getDataBinding().root.card_container.doOnLayout { view ->
                 originalHeight = view.height
@@ -156,7 +164,20 @@ class RecipesBinder(
 
     fun getRecipeTitle() = recipe.title
 
-    fun getRecipeServing() = "${recipe.servings} Servings"
+    fun getRecipeServing() = context.getString(R.string.item_recipe_serving, recipe.servings)
 
-    fun getRecipeReadyTime() = "${recipe.readyInMinutes} minutes"
+    fun getRecipeReadyTime() = context.getString(R.string.item_recipe_ready_time, parseMinutes(recipe.readyInMinutes,
+                                                                                               context))
+
+    fun getRecipeSummary(): Spanned = Html.fromHtml(recipe.summary)
+
+    private fun parseMinutes(totalMinutes: Int, context: Context): String {
+        val hours = totalMinutes / 60
+        val minutes = totalMinutes % 60
+
+        val hoursFormatted = if (hours < 10) "0${hours}" else "$hours"
+        val minutesFormatted = if (minutes < 10) "0${minutes}" else "$minutes"
+        return "$hoursFormatted:$minutesFormatted"
+    }
+
 }
