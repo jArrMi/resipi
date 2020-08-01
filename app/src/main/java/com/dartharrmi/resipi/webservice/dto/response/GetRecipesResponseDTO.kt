@@ -1,6 +1,8 @@
 package com.dartharrmi.resipi.webservice.dto.response
 
 import com.dartharrmi.resipi.domain.GetRecipesResponse
+import com.dartharrmi.resipi.webservice.dto.RecipeDTO
+import com.dartharrmi.resipi.webservice.dto.toDomain
 
 data class GetRecipesResponseDTO(
     val results: List<RecipeDTO>?,
@@ -12,7 +14,7 @@ data class GetRecipesResponseDTO(
 )
 
 fun GetRecipesResponseDTO.toDomain() = GetRecipesResponse(
-    results = this.results?.map { it.toDomain(this.baseUri.orEmpty()) } ?: emptyList(),
+    results = this.results?.map { it.toDomain() } ?: emptyList(),
     baseUri = this.baseUri.orEmpty(),
     offset = this.offset ?: 0,
     number = this.number ?: 0,
