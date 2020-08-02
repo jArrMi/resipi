@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="itemHighlightBinder"
+            type="com.dartharrmi.resipi.ui.views.HighlightBinder" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivHighlightImage"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:src="@{itemHighlightBinder.itemImage}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHighlightLabel"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawableTint="@color/subtitle_color"
+            android:gravity="center_horizontal"
+            android:text="@{itemHighlightBinder.itemLabel}"
+            android:textColor="@color/subtitle_color"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivHighlightImage"
+            tools:text="Pimienta picante" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
