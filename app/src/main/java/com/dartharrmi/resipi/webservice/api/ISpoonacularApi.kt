@@ -2,7 +2,7 @@ package com.dartharrmi.resipi.webservice.api
 
 import com.dartharrmi.resipi.webservice.dto.response.GetRecipeIngredientsDTO
 import com.dartharrmi.resipi.webservice.dto.response.GetRecipesResponseDTO
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

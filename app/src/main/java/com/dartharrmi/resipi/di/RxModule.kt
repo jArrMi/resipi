@@ -1,6 +1,6 @@
 package com.dartharrmi.resipi.di
 
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.disposables.CompositeDisposable
 import org.koin.dsl.module
 
 /**

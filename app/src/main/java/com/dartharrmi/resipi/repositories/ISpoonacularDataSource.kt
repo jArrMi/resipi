@@ -5,7 +5,7 @@ import com.dartharrmi.resipi.domain.Recipe
 import com.dartharrmi.resipi.webservice.api.ISpoonacularApi
 import com.dartharrmi.resipi.webservice.dto.response.GetRecipeIngredientsDTO
 import com.dartharrmi.resipi.webservice.dto.response.GetRecipesResponseDTO
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 
 interface ISpoonacularDataSource {
 

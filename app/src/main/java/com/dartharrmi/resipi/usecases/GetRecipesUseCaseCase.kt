@@ -5,8 +5,8 @@ import com.dartharrmi.resipi.domain.exceptions.RecipesNotfoundException
 import com.dartharrmi.resipi.repositories.ISpoonacularDataSource.Repository
 import com.dartharrmi.resipi.webservice.dto.response.GetRecipeIngredientsDTO
 import com.dartharrmi.resipi.webservice.dto.response.toDomain
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Observable
+import io.reactivex.Single
 
 interface IGetRecipesUseCase {
     companion object {

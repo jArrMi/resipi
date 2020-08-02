@@ -5,7 +5,7 @@ import com.dartharrmi.resipi.repositories.ISpoonacularDataSource.*
 import com.dartharrmi.resipi.webservice.dto.response.GetRecipeIngredientsDTO
 import com.dartharrmi.resipi.webservice.dto.response.GetRecipesResponseDTO
 import com.dartharrmi.resipi.webservice.dto.response.toDomain
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 
 class SpoonacularRepository(
     private val localDataSource: Local,

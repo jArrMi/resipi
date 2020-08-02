@@ -12,11 +12,11 @@
             Needs to apply a padding top for drawing the first child just below the AppBarLayout
          -->
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingTop="?attr/actionBarSize"
             android:id="@+id/rvRecipesList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
+            android:paddingTop="@dimen/recipe_list_top_padding"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <!--
@@ -27,9 +27,9 @@
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_5dp"
             android:background="@android:color/transparent"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            android:layout_marginBottom="@dimen/dimen_5dp"
             app:elevation="0dp">
 
             <androidx.appcompat.widget.Toolbar
