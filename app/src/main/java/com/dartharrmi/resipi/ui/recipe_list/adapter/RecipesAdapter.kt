@@ -1,5 +1,6 @@
 package com.dartharrmi.resipi.ui.recipe_list.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Html
 import android.text.Spanned
@@ -12,14 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dartharrmi.resipi.BR
 import com.dartharrmi.resipi.R
 import com.dartharrmi.resipi.base.adapter.BaseRecyclerViewAdapter
+import com.dartharrmi.resipi.domain.Ingredient
 import com.dartharrmi.resipi.domain.Recipe
+import com.dartharrmi.resipi.ui.views.HighlightAdapter
 import com.dartharrmi.resipi.utils.*
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
 class RecipesAdapterAdapter(
-        private val recipes: List<Recipe>,
-        private val context: Context
-): BaseRecyclerViewAdapter(recipes) {
+    private val recipes: List<Recipe>,
+    private val context: Context
+) : BaseRecyclerViewAdapter(recipes) {
 
     /**
      * Original height of the card calculated dynamically when is drawn for the first time.
@@ -72,8 +75,9 @@ class RecipesAdapterAdapter(
                 else -> {
                     // Collapse any other view expanded
                     val expandedRecipePosition = recipes.indexOf(expandedRecipe!!)
-                    val previousViewHolder = recyclerView.findViewHolderForAdapterPosition(expandedRecipePosition) as?
-                            BaseViewHolder
+                    val previousViewHolder =
+                        recyclerView.findViewHolderForAdapterPosition(expandedRecipePosition) as?
+                                BaseViewHolder
                     if (previousViewHolder != null) {
                         expandItem(previousViewHolder, expand = false, animate = true)
                     }
@@ -84,6 +88,12 @@ class RecipesAdapterAdapter(
                 }
             }
         }
+        holder.getDataBinding().root.hvIngredients.setAdapter(
+            IngredientAdapter(
+                currentRecipe.ingredients,
+                context
+            )
+        )
         holder.bind(viewModel)
     }
 
@@ -114,7 +124,7 @@ class RecipesAdapterAdapter(
     private fun expandItem(holder: BaseViewHolder, expand: Boolean, animate: Boolean) {
         if (animate) {
             val expandAnimator = getValueAnimator(
-                    expand, expandDuration, AccelerateDecelerateInterpolator()
+                expand, expandDuration, AccelerateDecelerateInterpolator()
             ) { progress ->
                 setExpandProgress(holder, progress)
             }
@@ -143,10 +153,10 @@ class RecipesAdapterAdapter(
     private fun setExpandProgress(holder: BaseViewHolder, progress: Float) {
         if (expandedHeight > 0 && originalHeight > 0) {
             holder.getDataBinding().root.card_container.layoutParams.height =
-                    (originalHeight + (expandedHeight - originalHeight) * progress).toInt()
+                (originalHeight + (expandedHeight - originalHeight) * progress).toInt()
         }
         holder.getDataBinding().root.card_container.layoutParams.width =
-                (originalWidth + (expandedWidth - originalWidth) * progress).toInt()
+            (originalWidth + (expandedWidth - originalWidth) * progress).toInt()
 
         holder.getDataBinding().root.card_container.requestLayout()
         holder.getDataBinding().root.chevron.rotation = 90 * progress
@@ -158,16 +168,20 @@ class RecipesAdapterAdapter(
  * the implementation of data binding in the layout.
  */
 class RecipesBinder(
-        private val context: Context,
-        private val recipe: Recipe
+    private val context: Context,
+    private val recipe: Recipe
 ) {
 
     fun getRecipeTitle() = recipe.title
 
     fun getRecipeServing() = context.getString(R.string.item_recipe_serving, recipe.servings)
 
-    fun getRecipeReadyTime() = context.getString(R.string.item_recipe_ready_time, parseMinutes(recipe.readyInMinutes,
-                                                                                               context))
+    fun getRecipeReadyTime() = context.getString(
+        R.string.item_recipe_ready_time, parseMinutes(
+            recipe.readyInMinutes,
+            context
+        )
+    )
 
     fun getRecipeSummary(): Spanned = Html.fromHtml(recipe.summary)
 
@@ -179,5 +193,12 @@ class RecipesBinder(
         val minutesFormatted = if (minutes < 10) "0${minutes}" else "$minutes"
         return "$hoursFormatted:$minutesFormatted"
     }
+}
 
+class IngredientAdapter(items: List<Ingredient>, context: Context) :
+    HighlightAdapter(items, context) {
+    override fun getItemImageUrl(item: Any) = (item as Ingredient).image
+
+    @SuppressLint("DefaultLocale")
+    override fun getItemLabel(item: Any) = (item as Ingredient).name.capitalize()
 }

@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
+            android:background="?attr/selectableItemBackground"
             android:orientation="vertical"
             app:cardBackgroundColor="@color/list_item_bg_collapsed"
             app:cardCornerRadius="6dp"
@@ -71,6 +72,8 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginEnd="16dp"
                         android:layout_toEndOf="@id/chevron"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:text="@{recipeBinder.recipeTitle}"
                         android:textColor="@color/title_color"
                         android:textStyle="bold"
@@ -112,19 +115,49 @@
                         android:textStyle="bold"
                         tools:text="2 Hrs 3 Min" />
 
+                    <TextView
+                        android:id="@+id/recipeSummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/recipeServings"
+                        android:layout_alignStart="@id/recipeServings"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:drawableTint="@color/subtitle_color"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical|start"
+                        android:maxLines="4"
+                        android:text="@{recipeBinder.recipeSummary}"
+                        android:textColor="@color/subtitle_color"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris" />
+
                     <LinearLayout
                         android:id="@+id/expand_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/recipeReadyTime"
+                        android:layout_below="@id/recipeSummary"
                         android:layout_alignStart="@id/recipeTitle"
-                        android:layout_marginTop="36dp"
+                        android:layout_marginTop="20dp"
                         android:layout_marginEnd="16dp"
                         android:orientation="vertical"
                         android:visibility="gone"
-                        tools:visibility="gone">
+                        tools:visibility="visible">
 
-                        <LinearLayout
+                        <com.dartharrmi.resipi.ui.views.HighlightView
+                            android:id="@+id/hvIngredients"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp" />
+
+                        <!--<de.codecrafters.tableview.TableView
+                            android:id="@+id/recipeTableView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:tableView_columnCount="2" />-->
+
+                        <!--<LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="#E7F7F7"
@@ -259,7 +292,7 @@
                                 android:layout_weight="1.5"
 
                                 android:backgroundTint="@color/subtitle_color" />
-                        </LinearLayout>
+                        </LinearLayout>-->
                     </LinearLayout>
                 </RelativeLayout>
             </FrameLayout>

@@ -2,6 +2,7 @@ package com.dartharrmi.resipi.base.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ abstract class BaseRecyclerViewAdapter(
     private val listener: OnRecyclerViewItemClickListener? = null
 ) : RecyclerView.Adapter<BaseRecyclerViewAdapter.BaseViewHolder>() {
 
+    @LayoutRes
     abstract fun itemLayoutId(): Int
 
     abstract fun itemToBindId(): Int

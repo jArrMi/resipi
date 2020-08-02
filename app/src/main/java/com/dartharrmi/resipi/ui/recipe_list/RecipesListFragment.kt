@@ -29,7 +29,7 @@ class RecipesListFragment : ResipiFragment<FragmentRecipeListBinding>() {
     override fun onResume() {
         super.onResume()
 
-        viewModel.getRecipes(getString(R.string.spoonacular_api_key), "Beef", 0, 30)
+        viewModel.getRecipes(getString(R.string.spoonacular_api_key), "Beef", 0, 1)
     }
 
     override fun getLayoutId() = R.layout.fragment_recipe_list
