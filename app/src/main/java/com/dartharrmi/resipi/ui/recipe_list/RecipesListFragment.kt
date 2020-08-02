@@ -2,8 +2,10 @@ package com.dartharrmi.resipi.ui.recipe_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.Toast
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dartharrmi.resipi.R
@@ -14,9 +16,12 @@ import com.dartharrmi.resipi.ui.livedata.Event
 import com.dartharrmi.resipi.ui.livedata.Status.FAILURE
 import com.dartharrmi.resipi.ui.livedata.Status.SUCCESS
 import com.dartharrmi.resipi.ui.recipe_list.adapter.RecipesAdapterAdapter
+import com.dartharrmi.resipi.utils.hideKeyBoard
+import com.dartharrmi.resipi.webservice.utils.NUMBER_OF_RECIPES
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class RecipesListFragment : ResipiFragment<FragmentRecipeListBinding>() {
 
@@ -29,7 +34,7 @@ class RecipesListFragment : ResipiFragment<FragmentRecipeListBinding>() {
     override fun onResume() {
         super.onResume()
 
-        viewModel.getRecipes(getString(R.string.spoonacular_api_key), "Beef", 0, 1)
+        //
     }
 
     override fun getLayoutId() = R.layout.fragment_recipe_list
@@ -42,7 +47,37 @@ class RecipesListFragment : ResipiFragment<FragmentRecipeListBinding>() {
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?) {
         super.initView(inflater, container)
+
+        with(dataBinding.root) {
+            rvRecipesList.apply {
+                viewTreeObserver
+                    .addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+                        override fun onGlobalLayout() {
+                            rvRecipesList.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
+                            val appBarHeight: Int = this@with.appBarLayout.height
+                            rvRecipesList.translationY = -appBarHeight.toFloat()
+                            rvRecipesList.layoutParams.height =
+                                rvRecipesList.height + appBarHeight
+                        }
+                    })
+            }
+
+            svSearchRecipe.queryHint = getString(R.string.search_view_hint)
+            svSearchRecipe.setOnQueryTextListener(object : OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    viewModel.getRecipes(getString(R.string.spoonacular_api_key),
+                                         query.orEmpty(), 0, NUMBER_OF_RECIPES)
+                    requireActivity().hideKeyBoard()
+
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean = false
+            })
+        }
     }
+
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun onRecipes(event: Event<List<Recipe>>) {
@@ -61,7 +96,6 @@ class RecipesListFragment : ResipiFragment<FragmentRecipeListBinding>() {
                     it,
                     getViewContext()
                 ) // MergeAdapter(deliveryListPagedAdapter, loaderAdapter)
-                // addItemDecoration(PaddingDecorator(getViewContext(), R.drawable.drawable_full_lines, R.dimen.spacing_1dp, 1))
             }
 
             Toast.makeText(getViewContext(), "Recipes: ${recipes.size}", Toast.LENGTH_LONG).show()

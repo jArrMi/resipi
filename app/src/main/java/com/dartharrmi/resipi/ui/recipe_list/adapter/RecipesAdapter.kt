@@ -58,7 +58,7 @@ class RecipesAdapterAdapter(
         val viewModel = RecipesBinder(context, currentRecipe)
 
         expandItem(holder, expand = currentRecipe == expandedRecipe, animate = false)
-        holder.getDataBinding().root.card_container.setOnClickListener {
+        holder.getDataBinding().root.chevron.setOnClickListener {
             when (expandedRecipe) {
                 null -> {
                     // Expand the recipe

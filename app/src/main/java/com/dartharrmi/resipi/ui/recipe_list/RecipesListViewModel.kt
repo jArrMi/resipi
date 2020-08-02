@@ -13,18 +13,20 @@ class RecipesListViewModel(private val getRecipesUseCaseCase: IGetRecipesUseCase
     internal val getRecipesEvent = MutableLiveData<Event<List<Recipe>>>()
 
     fun getRecipes(apiKey: String, query: String, offset: Int, number: Int) {
-        getRecipesUseCaseCase
-            .execute(apiKey, query, offset, number)
-            .applyIoMain()
-            .doOnSubscribe { isLoadingEvent.postValue(Event.success(true)) }
-            .doAfterTerminate { isLoadingEvent.postValue(Event.success(false)) }
-            .subscribe(
-                {
-                    getRecipesEvent.postValue(Event.success(it))
+        if (query.isNotBlank()) {
+            getRecipesUseCaseCase
+                .execute(apiKey, query, offset, number)
+                .applyIoMain()
+                .doOnSubscribe { isLoadingEvent.postValue(Event.success(true)) }
+                .doAfterTerminate { isLoadingEvent.postValue(Event.success(false)) }
+                .subscribe(
+                    {
+                        getRecipesEvent.postValue(Event.success(it))
 
-                }, {
-                    getRecipesEvent.postValue(Event.failure(it))
-                }
-            )
+                    }, {
+                        getRecipesEvent.postValue(Event.failure(it))
+                    }
+                )
+        }
     }
 }

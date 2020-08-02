@@ -2,17 +2,50 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E9E9ED">
+        android:background="#E9E9ED"
+        android:fitsSystemWindows="true">
 
+        <!--
+            Needs to apply a padding top for drawing the first child just below the AppBarLayout
+         -->
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="?attr/actionBarSize"
             android:id="@+id/rvRecipesList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layoutAnimation="@anim/layout_anim_item_fall_down"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <!--
+            On the XML, the AppBarLayout needs to be below the scroll view the recycler view, so this
+            one do draws itself above the toolbar.
+         -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            android:layout_marginBottom="@dimen/dimen_5dp"
+            app:elevation="0dp">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_margin="21dp"
+                android:background="@drawable/drawable_rounded_corners"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/svSearchRecipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

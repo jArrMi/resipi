@@ -2,12 +2,14 @@ package com.dartharrmi.resipi.utils
 
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Point
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 
 inline fun getValueAnimator(
         forward: Boolean = true,
@@ -56,3 +58,10 @@ fun View.visible() {
 fun View.isVisible(): Boolean = visibility == View.VISIBLE
 
 fun Any.className(): String = this::class.java.simpleName
+
+fun Activity.hideKeyBoard() {
+    val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputManager.apply {
+        hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.SHOW_FORCED)
+    }
+}

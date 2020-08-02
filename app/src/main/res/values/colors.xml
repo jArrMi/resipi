@@ -7,6 +7,9 @@
     <color name="title_color">#000000</color>
     <color name="subtitle_color">#A6000000</color>
 
+    <color name="colorViewGrey">#ff989898</color>
+    <color name="colorWhite">@android:color/white</color>
+
     <!-- LoadingView START-->
     <color name="colorLoadingTranslucent">#B000</color>
     <color name="colorBrightYellow">#ffab00</color>
