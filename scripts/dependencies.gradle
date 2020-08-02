@@ -33,7 +33,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
     implementation "androidx.multidex:multidex:$multidex_version"
     implementation "androidx.paging:paging-runtime:$paging_version"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipe_refresh_layout_version"
+    implementation "androidx.paging:paging-rxjava2:$paging_version"
     implementation "com.google.android.material:material:$google_material_version"
 
     // Navigation
@@ -52,21 +52,16 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$koin_androidx_scope_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_androidx_viewmodel_version"
 
-    // Java 8 Date API backport
-    implementation "com.jakewharton.threetenabp:threetenabp:$threetenabp_version"
-
     // RX
-    implementation "io.reactivex.rxjava3:rxandroid:$rx"
-    // Because RxAndroid releases are few and far between, it is recommended you also
-    // explicitly depend on RxJava"s latest version for bug fixes and new features.
-    // (see https://github.com/ReactiveX/RxJava/releases for latest 3.x.x version)
-    implementation "io.reactivex.rxjava3:rxjava:$rx"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_2_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rx_2_version"
 
     //Retrofit
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.google.code.gson:gson:$gson_version"
 
     // Room
@@ -74,4 +69,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-rxjava3:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // SortableTableView
+    implementation "de.codecrafters.tableview:tableview:$table_view_version"
 }

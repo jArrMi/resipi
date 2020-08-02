@@ -37,13 +37,19 @@ object ResipiOkHttpClient {
      */
     @JvmStatic
     @JvmOverloads
-    fun createPublicOkHttpClient(context: Context, headers: Map<String, String> = mapOf()): OkHttpClient {
+    fun createPublicOkHttpClient(
+        context: Context,
+        headers: Map<String, String> = mapOf()
+    ): OkHttpClient {
         val builder = OkHttpClient.Builder()
         setUpHeadersAndTimeOut(builder)
         return builder.build()
     }
 
-    private fun setUpHeadersAndTimeOut(builder: OkHttpClient.Builder, currentHeaders: Map<String, String> = emptyMap()) {
+    private fun setUpHeadersAndTimeOut(
+        builder: OkHttpClient.Builder,
+        currentHeaders: Map<String, String> = emptyMap()
+    ) {
         builder.apply {
             connectTimeout(timeOutInSeconds, TimeUnit.SECONDS)
             readTimeout(timeOutInSeconds, TimeUnit.SECONDS)
@@ -57,8 +63,8 @@ object ResipiOkHttpClient {
                 requestBuilder.method(original.method(), original.body())
                 chain.proceed(requestBuilder.build())
             }
-            addInterceptor(HttpLoggingInterceptor().also {
-                setLogLevel(logLevel)
+            addInterceptor(HttpLoggingInterceptor().apply {
+                this.level = logLevel
             })
         }
     }

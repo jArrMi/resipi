@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="recipeBinder"
+            type="com.dartharrmi.resipi.ui.recipe_list.adapter.RecipesBinder" />
+    </data>
+
+    <!--
+    FrameLayout is used as top level layout because when the CardView is getting
+    animated, it needs to stay centered. Otherwise we need to animate x and y values
+    too. layout_gravity="center_horizontal" is a lot simpler.
+    -->
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="vertical"
+            app:cardBackgroundColor="@color/list_item_bg_collapsed"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="0dp"
+            app:cardMaxElevation="0dp"
+            tools:layout_marginLeft="15dp"
+            tools:layout_marginRight="15dp">
+
+            <FrameLayout
+                android:id="@+id/card_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!--
+                scale_container is used to scale down the item when the scale down
+                animation happens. card_container re-sizes height and width while
+                scale_container scales the inside views to make it look natural
+                -->
+
+                <RelativeLayout
+                    android:id="@+id/scale_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/list_item_horizontal_padding"
+                    android:paddingTop="@dimen/list_item_vertical_padding"
+                    android:paddingRight="@dimen/list_item_horizontal_padding"
+                    android:paddingBottom="@dimen/list_item_vertical_padding"
+                    android:transformPivotX="0dp">
+
+                    <ImageView
+                        android:id="@+id/chevron"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/recipeTitle"
+                        android:layout_alignBottom="@+id/recipeServings"
+                        android:layout_marginEnd="16dp"
+                        android:tint="@color/title_color"
+                        app:srcCompat="@drawable/ic_chevron_right" />
+
+                    <TextView
+                        android:id="@+id/recipeTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_toEndOf="@id/chevron"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{recipeBinder.recipeTitle}"
+                        android:textColor="@color/title_color"
+                        android:textStyle="bold"
+                        tools:text="Recipe Title" />
+
+                    <TextView
+                        android:id="@+id/recipeServings"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/recipeTitle"
+                        android:layout_marginTop="8dp"
+                        android:layout_toEndOf="@id/chevron"
+                        android:drawableStart="@drawable/ic_recipe_serving"
+                        android:drawablePadding="2dp"
+                        android:drawableTint="@color/subtitle_color"
+                        android:gravity="center_horizontal"
+                        android:text="@{recipeBinder.recipeServing}"
+                        android:textColor="@color/subtitle_color"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        tools:text="4 Servings" />
+
+                    <TextView
+                        android:id="@+id/recipeReadyTime"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/recipeTitle"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_toEndOf="@id/recipeServings"
+                        android:drawableStart="@drawable/ic_recipe_ready_time_3"
+                        android:drawablePadding="5dp"
+                        android:drawableTint="@color/subtitle_color"
+                        android:gravity="center_horizontal"
+                        android:text="@{recipeBinder.recipeReadyTime}"
+                        android:textColor="@color/subtitle_color"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        tools:text="2 Hrs 3 Min" />
+
+                    <TextView
+                        android:id="@+id/recipeSummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/recipeServings"
+                        android:layout_alignStart="@id/recipeServings"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:drawableTint="@color/subtitle_color"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical|start"
+                        android:maxLines="4"
+                        android:text="@{recipeBinder.recipeSummary}"
+                        android:textColor="@color/subtitle_color"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris" />
+
+                    <LinearLayout
+                        android:id="@+id/expand_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/recipeSummary"
+                        android:layout_alignStart="@id/recipeTitle"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="16dp"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <com.dartharrmi.resipi.ui.views.HighlightView
+                            android:id="@+id/hvIngredients"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp" />
+
+                        <!--<de.codecrafters.tableview.TableView
+                            android:id="@+id/recipeTableView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:tableView_columnCount="2" />-->
+
+                        <!--<LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#E7F7F7"
+                            android:orientation="horizontal"
+                            android:padding="14dp">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1"
+
+                                android:backgroundTint="@color/title_color"
+                                android:transformPivotX="0dp" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="0.8" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1.5"
+
+                                android:backgroundTint="@color/subtitle_color" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#0000"
+                            android:orientation="horizontal"
+                            android:padding="14dp">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1"
+
+                                android:backgroundTint="@color/title_color" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="0.8" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1.5"
+
+                                android:backgroundTint="@color/subtitle_color" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#E7F7F7"
+                            android:orientation="horizontal"
+                            android:padding="14dp">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1"
+
+                                android:backgroundTint="@color/title_color" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="0.8" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1.5"
+
+                                android:backgroundTint="@color/subtitle_color" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#0000"
+                            android:orientation="horizontal"
+                            android:padding="14dp">
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1"
+
+                                android:backgroundTint="@color/title_color" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="0.8" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="10dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginEnd="16dp"
+                                android:layout_weight="1.5"
+
+                                android:backgroundTint="@color/subtitle_color" />
+                        </LinearLayout>-->
+                    </LinearLayout>
+                </RelativeLayout>
+            </FrameLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+</layout>
