@@ -3,6 +3,7 @@ package com.dartharrmi.resipi.utils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -45,6 +46,12 @@ fun <T> Single<T>.applyIoMain(): Single<T> = subscribeOn(Schedulers.io())
  * Default subscriber for UI observables
  */
 fun Completable.applyIoMain(): Completable = subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
+
+/**
+ * Default subscriber for UI observables
+ */
+fun <T> Flowable<T>.applyIoMain(): Flowable<T> = subscribeOn(Schedulers.io())
     .observeOn(AndroidSchedulers.mainThread())
 
 /**

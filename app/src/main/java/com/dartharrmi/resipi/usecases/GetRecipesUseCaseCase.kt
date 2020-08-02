@@ -1,12 +1,13 @@
 package com.dartharrmi.resipi.usecases
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.rxjava2.flowable
 import com.dartharrmi.resipi.domain.Recipe
-import com.dartharrmi.resipi.domain.exceptions.RecipesNotfoundException
 import com.dartharrmi.resipi.repositories.ISpoonacularDataSource.Repository
-import com.dartharrmi.resipi.webservice.dto.response.GetRecipeIngredientsDTO
-import com.dartharrmi.resipi.webservice.dto.response.toDomain
-import io.reactivex.Observable
-import io.reactivex.Single
+import com.dartharrmi.resipi.repositories.paging.RecipePagingSource
+import io.reactivex.Flowable
 
 interface IGetRecipesUseCase {
     companion object {
@@ -40,42 +41,13 @@ interface IGetRecipesUseCase {
         fun getRecipeUrl(recipeId: Long, size: String) = "$PREFIX_RECIPE_URL$recipeId-$size"
     }
 
-    fun execute(apiKey: String, query: String, offset: Int, number: Int): Single<List<Recipe>>
+    fun execute(query: String): Flowable<PagingData<Recipe>>
 }
 
 class GetRecipesUseCaseCase(private val repository: Repository) : IGetRecipesUseCase {
 
-    override fun execute(
-        apiKey: String, query: String, offset: Int, number: Int
-    ): Single<List<Recipe>> {
-        return repository
-            .searchRecipes(apiKey, query, offset, number)
-            .flatMapObservable {
-                if (it.results.isEmpty()) {
-                    throw RecipesNotfoundException(query)
-                }
-
-                Observable.fromIterable(it.results)
-            }
-            .flatMapSingle { recipe: Recipe ->
-                repository
-                    .getRecipeDetails(recipe.id, apiKey)
-                    .map { t: GetRecipeIngredientsDTO -> t.toDomain() }
-                    .map { ingredientsResponse ->
-                        ingredientsResponse.ingredients.forEach {
-                            it.image = IGetRecipesUseCase.getIngredientUrl(
-                                IGetRecipesUseCase.SIZE_100_X_100,
-                                it.image
-                            )
-                        }
-                        recipe.apply {
-                            image = IGetRecipesUseCase.getRecipeUrl(
-                                this.id,
-                                IGetRecipesUseCase.SIZE_636_X_393
-                            )
-                            ingredients = ingredientsResponse.ingredients
-                        }
-                    }
-            }.toList()
-    }
+    override fun execute(query: String): Flowable<PagingData<Recipe>> =
+        Pager(PagingConfig(pageSize = 10)) {
+            RecipePagingSource(query, repository)
+        }.flowable
 }

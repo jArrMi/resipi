@@ -4,25 +4,36 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Html
 import android.text.Spanned
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.dartharrmi.resipi.BR
 import com.dartharrmi.resipi.R
+import com.dartharrmi.resipi.base.adapter.BasePagedRecyclerViewAdapter
 import com.dartharrmi.resipi.base.adapter.BaseRecyclerViewAdapter
+import com.dartharrmi.resipi.base.adapter.BaseRecyclerViewAdapter.BaseViewHolder
 import com.dartharrmi.resipi.domain.Ingredient
 import com.dartharrmi.resipi.domain.Recipe
 import com.dartharrmi.resipi.ui.views.HighlightAdapter
 import com.dartharrmi.resipi.utils.*
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
-class RecipesAdapterAdapter(
-    private val recipes: List<Recipe>,
-    private val context: Context
-) : BaseRecyclerViewAdapter(recipes) {
+class RecipesItemCallback : BasePagedRecyclerViewAdapter.BaseItemCallback<Recipe>() {
+    override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe) = oldItem.id == newItem.id
+
+    @SuppressLint("DiffUtilEquals")
+    override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe) = oldItem == newItem
+}
+
+class RecipesAdapter(private val context: Context) :
+    BasePagedRecyclerViewAdapter<Recipe>(null, RecipesItemCallback()) {
 
     /**
      * Original height of the card calculated dynamically when is drawn for the first time.
@@ -35,6 +46,7 @@ class RecipesAdapterAdapter(
     private var expandedHeight = -1
 
     private var expandedRecipe: Recipe? = null
+    private var expandedRecipeIndex = -1
     private var animationPlaybackSpeed: Double = 1.0
     private val expandDuration: Long = (300L / animationPlaybackSpeed).toLong()
     private val originalWidth = context.screenWidth - 48.dp
@@ -46,55 +58,64 @@ class RecipesAdapterAdapter(
 
     override fun itemToBindId() = BR.recipeBinder
 
-    override fun getItemCount(): Int = recipes.size
-
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
         this.recyclerView = recyclerView
     }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        val dataBinding = DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context), itemLayoutId(), parent, false)
+        return BaseViewHolder(dataBinding, BR.recipeBinder)
+    }
+
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        val currentRecipe = recipes[position]
-        val viewModel = RecipesBinder(context, currentRecipe)
+        getItem(position)?.let { currentRecipe ->
+            val viewModel = RecipesBinder(context, currentRecipe)
 
-        expandItem(holder, expand = currentRecipe == expandedRecipe, animate = false)
-        holder.getDataBinding().root.chevron.setOnClickListener {
-            when (expandedRecipe) {
-                null -> {
-                    // Expand the recipe
-                    expandItem(holder, expand = true, animate = true)
-                    expandedRecipe = currentRecipe
-                }
-
-                currentRecipe -> {
-                    // Collapse the recipe
-                    expandItem(holder, expand = false, animate = true)
-                    expandedRecipe = null
-                }
-
-                else -> {
-                    // Collapse any other view expanded
-                    val expandedRecipePosition = recipes.indexOf(expandedRecipe!!)
-                    val previousViewHolder =
-                        recyclerView.findViewHolderForAdapterPosition(expandedRecipePosition) as?
-                                BaseViewHolder
-                    if (previousViewHolder != null) {
-                        expandItem(previousViewHolder, expand = false, animate = true)
+            expandItem(holder, expand = currentRecipe == expandedRecipe, animate = false)
+            holder.getDataBinding().root.chevron.setOnClickListener {
+                when (expandedRecipe) {
+                    null -> {
+                        // Expand the recipe
+                        expandItem(holder, expand = true, animate = true)
+                        expandedRecipe = currentRecipe
+                        expandedRecipeIndex = position
                     }
 
-                    // Expand the new view clicked
-                    expandItem(holder, expand = true, animate = true)
-                    expandedRecipe = currentRecipe
+                    currentRecipe -> {
+                        // Collapse the recipe
+                        expandItem(holder, expand = false, animate = true)
+                        expandedRecipe = null
+                        expandedRecipeIndex = -1
+                    }
+
+                    else -> {
+                        // Collapse any other view expanded
+                        //val expandedRecipePosition = recipes.indexOf(expandedRecipe!!)
+                        if (expandedRecipeIndex != -1) {
+                            val previousViewHolder =
+                                recyclerView.findViewHolderForAdapterPosition(expandedRecipeIndex) as?
+                                        BaseViewHolder
+                            if (previousViewHolder != null) {
+                                expandItem(previousViewHolder, expand = false, animate = true)
+                            }
+                        }
+
+                        // Expand the new view clicked
+                        expandItem(holder, expand = true, animate = true)
+                        expandedRecipe = currentRecipe
+                        expandedRecipeIndex = position
+                    }
                 }
             }
-        }
-        holder.getDataBinding().root.hvIngredients.setAdapter(
-            IngredientAdapter(
-                currentRecipe.ingredients,
-                context
+            holder.getDataBinding().root.hvIngredients.setAdapter(
+                IngredientAdapter(
+                    currentRecipe.ingredients,
+                    context
+                )
             )
-        )
-        holder.bind(viewModel)
+            holder.bind(viewModel)
+        }
     }
 
     override fun onViewAttachedToWindow(holder: BaseViewHolder) {

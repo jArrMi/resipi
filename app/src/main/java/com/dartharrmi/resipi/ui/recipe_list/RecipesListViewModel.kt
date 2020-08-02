@@ -1,32 +1,29 @@
 package com.dartharrmi.resipi.ui.recipe_list
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.rxjava2.cachedIn
 import com.dartharrmi.resipi.base.BaseViewModel
 import com.dartharrmi.resipi.domain.Recipe
-import com.dartharrmi.resipi.ui.livedata.Event
 import com.dartharrmi.resipi.usecases.IGetRecipesUseCase
-import com.dartharrmi.resipi.utils.applyIoMain
+import io.reactivex.Flowable
 
-class RecipesListViewModel(private val getRecipesUseCaseCase: IGetRecipesUseCase) :
-    BaseViewModel() {
+class RecipesListViewModel(private val getRecipesUseCaseCase: IGetRecipesUseCase): BaseViewModel() {
 
-    internal val getRecipesEvent = MutableLiveData<Event<List<Recipe>>>()
+    private var currentQueryValue: String? = null
+    private var currentSearchResult: Flowable<PagingData<Recipe>>? = null
 
-    fun getRecipes(apiKey: String, query: String, offset: Int, number: Int) {
-        if (query.isNotBlank()) {
-            getRecipesUseCaseCase
-                .execute(apiKey, query, offset, number)
-                .applyIoMain()
-                .doOnSubscribe { isLoadingEvent.postValue(Event.success(true)) }
-                .doAfterTerminate { isLoadingEvent.postValue(Event.success(false)) }
-                .subscribe(
-                    {
-                        getRecipesEvent.postValue(Event.success(it))
-
-                    }, {
-                        getRecipesEvent.postValue(Event.failure(it))
-                    }
-                )
+    fun getRecipes(queryString: String): Flowable<PagingData<Recipe>> {
+        val lastResult = currentSearchResult
+        if (queryString == currentQueryValue && lastResult != null) {
+            return lastResult
         }
+
+        currentQueryValue = queryString
+        val newResult: Flowable<PagingData<Recipe>> = getRecipesUseCaseCase.execute(queryString).cachedIn(viewModelScope)
+        currentSearchResult = newResult
+
+        return newResult
     }
+
 }
