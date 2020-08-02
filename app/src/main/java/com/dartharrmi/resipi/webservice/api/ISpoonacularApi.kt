@@ -1,5 +1,6 @@
 package com.dartharrmi.resipi.webservice.api
 
+import com.dartharrmi.resipi.webservice.dto.response.GetRecipeIngredientsDTO
 import com.dartharrmi.resipi.webservice.dto.response.GetRecipesResponseDTO
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
@@ -35,5 +36,5 @@ interface ISpoonacularApi {
     @GET(GET_RECIPE_DETAILS)
     fun getRecipeDetails(
         @Path(PATH_RECIPE_ID) recipeId: Long, @Query(PARAM_API_KEY) apiKey: String
-    ): Single<GetRecipesResponseDTO>
+    ): Single<GetRecipeIngredientsDTO>
 }
