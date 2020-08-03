@@ -27,7 +27,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/dimen_8dp</item>
         <item name="android:drawablePadding">@dimen/dimen_2dp</item>
-        <item name="android:drawableTint">"@color/subtitle_color"</item>
+        <item name="android:drawableTint">@color/subtitle_color</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:textColor">@color/subtitle_color</item>
         <item name="android:textSize">@dimen/text_size_11sp</item>
