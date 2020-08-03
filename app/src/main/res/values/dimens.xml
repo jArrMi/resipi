@@ -4,8 +4,19 @@
     <dimen name="list_item_horizontal_padding">16dp</dimen>
     <dimen name="toolbar_padding">21dp</dimen>
     <dimen name="recipe_list_top_padding">95dp</dimen>
+    <dimen name="recipe_servings_width">75dp</dimen>
+    <dimen name="recipe_ready_time_width">100dp</dimen>
+    <dimen name="recipe_highlight_heigh">100dp</dimen>
 
     <dimen name="dimen_0dp">0dp</dimen>
+    <dimen name="dimen_2dp">2dp</dimen>
     <dimen name="dimen_5dp">5dp</dimen>
+    <dimen name="dimen_8dp">8dp</dimen>
     <dimen name="dimen_10dp">10dp</dimen>
+    <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="dimen_20dp">20dp</dimen>
+
+    <dimen name="text_size_11sp">11sp</dimen>
+    <dimen name="text_size_12sp">12sp</dimen>
+    <dimen name="text_size_25sp">25sp</dimen>
 </resources>

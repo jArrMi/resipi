@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,19 +15,21 @@
     animated, it needs to stay centered. Otherwise we need to animate x and y values
     too. layout_gravity="center_horizontal" is a lot simpler.
     -->
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:transitionName="@string/recipe_transformation">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/recipeCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             android:orientation="vertical"
             app:cardBackgroundColor="@color/list_item_bg_collapsed"
             app:cardCornerRadius="6dp"
@@ -67,71 +71,42 @@
 
                     <TextView
                         android:id="@+id/recipeTitle"
+                        style="@style/AppTheme.RecipeName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginEnd="16dp"
                         android:layout_toEndOf="@id/chevron"
-                        android:ellipsize="end"
-                        android:maxLines="1"
                         android:text="@{recipeBinder.recipeTitle}"
-                        android:textColor="@color/title_color"
-                        android:textStyle="bold"
                         tools:text="Recipe Title" />
 
                     <TextView
                         android:id="@+id/recipeServings"
-                        android:layout_width="75dp"
+                        style="@style/AppTheme.RecipeDetails"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/recipeTitle"
-                        android:layout_marginTop="8dp"
                         android:layout_toEndOf="@id/chevron"
                         android:drawableStart="@drawable/ic_recipe_serving"
-                        android:drawablePadding="2dp"
-                        android:drawableTint="@color/subtitle_color"
-                        android:gravity="center_horizontal"
                         android:text="@{recipeBinder.recipeServing}"
-                        android:textColor="@color/subtitle_color"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
                         tools:text="4 Servings" />
 
                     <TextView
                         android:id="@+id/recipeReadyTime"
-                        android:layout_width="100dp"
+                        style="@style/AppTheme.RecipeDetails"
+                        android:layout_width="@dimen/recipe_ready_time_width"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/recipeTitle"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="@dimen/dimen_16dp"
                         android:layout_toEndOf="@id/recipeServings"
                         android:drawableStart="@drawable/ic_recipe_ready_time_3"
-                        android:drawablePadding="5dp"
-                        android:drawableTint="@color/subtitle_color"
-                        android:gravity="center_horizontal"
                         android:text="@{recipeBinder.recipeReadyTime}"
-                        android:textColor="@color/subtitle_color"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
                         tools:text="2 Hrs 3 Min" />
 
                     <TextView
                         android:id="@+id/recipeSummary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/AppTheme.RecipeSummary"
                         android:layout_below="@id/recipeServings"
                         android:layout_alignStart="@id/recipeServings"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:drawableTint="@color/subtitle_color"
-                        android:ellipsize="end"
-                        android:gravity="center_vertical|start"
-                        android:maxLines="4"
                         android:text="@{recipeBinder.recipeSummary}"
-                        android:textColor="@color/subtitle_color"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
                         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris" />
 
                     <LinearLayout
@@ -140,8 +115,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/recipeSummary"
                         android:layout_alignStart="@id/recipeTitle"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="@dimen/dimen_20dp"
+                        android:layout_marginEnd="@dimen/dimen_16dp"
                         android:orientation="vertical"
                         android:visibility="gone"
                         tools:visibility="visible">
@@ -149,7 +124,7 @@
                         <com.dartharrmi.resipi.ui.views.HighlightView
                             android:id="@+id/hvIngredients"
                             android:layout_width="match_parent"
-                            android:layout_height="100dp" />
+                            android:layout_height="@dimen/recipe_highlight_heigh" />
 
                         <!--<de.codecrafters.tableview.TableView
                             android:id="@+id/recipeTableView"

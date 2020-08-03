@@ -11,4 +11,39 @@
     <style name="ProgressBarTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/colorBrightYellow</item>
     </style>
+
+    <style name="AppTheme.RecipeName" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_marginTop">@dimen/dimen_2dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_16dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/title_color</item>
+        <item name="android:textSize">@dimen/text_size_25sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.RecipeDetails" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">@dimen/recipe_servings_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dimen_8dp</item>
+        <item name="android:drawablePadding">@dimen/dimen_2dp</item>
+        <item name="android:drawableTint">"@color/subtitle_color"</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/subtitle_color</item>
+        <item name="android:textSize">@dimen/text_size_11sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.RecipeSummary" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/dimen_8dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_16dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:maxLines">4</item>
+        <item name="android:textColor">@color/subtitle_color</item>
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
