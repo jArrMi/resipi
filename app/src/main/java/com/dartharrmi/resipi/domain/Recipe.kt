@@ -13,5 +13,6 @@ data class Recipe(
     val glutenFree: Boolean,
     val summary: String,
     val nutrition: Nutrition,
-    var ingredients: List<Ingredient> = emptyList()
+    var ingredients: List<Ingredient> = emptyList(),
+    val instructions: List<InstructionStep>
 )

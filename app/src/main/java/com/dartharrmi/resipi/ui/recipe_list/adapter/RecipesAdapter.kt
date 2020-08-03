@@ -128,7 +128,7 @@ class RecipesAdapter(private val context: Context) :
             holder.getDataBinding().root.card_container.doOnLayout { view ->
                 originalHeight = view.height
 
-                /**
+                /*
                  * Show expandView and calculate the value for expandedHeight in next layout pass (doOnPreDraw) and
                  * hide it immediately. We use onPreDraw because it's called after layout is done. doOnNextLayout is
                  * called during layout phase which causes issues with hiding expandView.
