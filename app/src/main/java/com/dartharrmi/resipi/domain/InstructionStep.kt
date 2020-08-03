@@ -4,6 +4,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Nutrition(
-    val nutritionFacts: List<NutritionFact> = emptyList()
+data class InstructionStep(
+    val number: Int,
+    val step: String,
+    val ingredients: List<Long>
 ) : Parcelable
