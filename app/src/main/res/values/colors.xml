@@ -9,6 +9,7 @@
 
     <color name="colorViewGrey">#ff989898</color>
     <color name="colorWhite">@android:color/white</color>
+    <color name="colorBackground">#E9E9ED</color>
 
     <!-- LoadingView START-->
     <color name="colorLoadingTranslucent">#B000</color>

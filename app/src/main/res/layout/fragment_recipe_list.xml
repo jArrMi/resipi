@@ -5,7 +5,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E9E9ED"
+        android:background="@color/colorBackground"
         android:fitsSystemWindows="true">
 
         <!--
@@ -30,13 +30,13 @@
             android:layout_marginBottom="@dimen/dimen_5dp"
             android:background="@android:color/transparent"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:elevation="0dp">
+            app:elevation="@dimen/dimen_0dp">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_margin="21dp"
+                android:layout_margin="@dimen/toolbar_padding"
                 android:background="@drawable/drawable_rounded_corners"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay">
