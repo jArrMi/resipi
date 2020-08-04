@@ -29,12 +29,6 @@ class LoadStateViewHolder(
     retry: () -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    /*init {
-        binding.retryButton.also {
-            it.setOnClickListener { retry.invoke() }
-        }
-    }*/
-
     fun bind(loadState: LoadState) {
         if (loadState is LoadState.Error) {
             binding.footerErrorMessage.text = loadState.error.localizedMessage
