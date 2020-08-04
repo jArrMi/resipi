@@ -8,9 +8,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseRecyclerViewAdapter(
-    private val list: List<Any>,
-    private val listener: OnRecyclerViewItemClickListener? = null
-) : RecyclerView.Adapter<BaseRecyclerViewAdapter.BaseViewHolder>() {
+        private val list: List<Any>, private val listener: OnRecyclerViewItemClickListener? = null
+): RecyclerView.Adapter<BaseRecyclerViewAdapter.BaseViewHolder>() {
 
     @LayoutRes
     abstract fun itemLayoutId(): Int
@@ -21,10 +20,10 @@ abstract class BaseRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         val dataBinding = DataBindingUtil.inflate<ViewDataBinding>(
-            LayoutInflater.from(parent.context),
-            viewType,
-            parent,
-            false
+                LayoutInflater.from(parent.context),
+                viewType,
+                parent,
+                false
         )
         return BaseViewHolder(dataBinding, itemToBindId(), listener)
     }
@@ -32,13 +31,14 @@ abstract class BaseRecyclerViewAdapter(
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) =
-        holder.bind(list[position])
+            holder.bind(list[position])
 
     class BaseViewHolder(
-        private val dataBinding: ViewDataBinding,
-        private val itemToBindId: Int,
-        private val listener: OnRecyclerViewItemClickListener? = null
-    ) : RecyclerView.ViewHolder(dataBinding.root) {
+            private val dataBinding: ViewDataBinding,
+            private val itemToBindId: Int,
+            private val listener: OnRecyclerViewItemClickListener? = null
+    ): RecyclerView.ViewHolder(dataBinding.root) {
+
         fun bind(item: Any?) {
             dataBinding.root.setOnClickListener { listener?.onItemClicked(item) }
             dataBinding.setVariable(itemToBindId, item)

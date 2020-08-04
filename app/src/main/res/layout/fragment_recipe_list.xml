@@ -8,6 +8,15 @@
         android:background="#E9E9ED"
         android:fitsSystemWindows="true">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie_anim_loading_2.json" />
+
         <!--
             Needs to apply a padding top for drawing the first child just below the AppBarLayout
          -->
