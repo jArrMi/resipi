@@ -1,6 +1,5 @@
 package com.dartharrmi.resipi.ui.recipe_list.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Html
 import android.text.Spanned
@@ -17,23 +16,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dartharrmi.resipi.BR
 import com.dartharrmi.resipi.R
 import com.dartharrmi.resipi.base.adapter.BasePagedRecyclerViewAdapter
-import com.dartharrmi.resipi.base.adapter.BaseRecyclerViewAdapter
 import com.dartharrmi.resipi.base.adapter.BaseRecyclerViewAdapter.BaseViewHolder
-import com.dartharrmi.resipi.domain.Ingredient
 import com.dartharrmi.resipi.domain.Recipe
-import com.dartharrmi.resipi.ui.views.HighlightAdapter
+import com.dartharrmi.resipi.ui.recipe_detail.adapter.IngredientAdapter
 import com.dartharrmi.resipi.utils.*
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
-class RecipesItemCallback : BasePagedRecyclerViewAdapter.BaseItemCallback<Recipe>() {
+class RecipesItemCallback: BasePagedRecyclerViewAdapter.BaseItemCallback<Recipe>() {
     override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe) = oldItem.id == newItem.id
 
-    @SuppressLint("DiffUtilEquals")
     override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe) = oldItem == newItem
 }
 
-class RecipesAdapter(private val context: Context) :
-    BasePagedRecyclerViewAdapter<Recipe>(null, RecipesItemCallback()) {
+class RecipesAdapter(private val context: Context):
+        BasePagedRecyclerViewAdapter<Recipe>(null, RecipesItemCallback()) {
 
     /**
      * Original height of the card calculated dynamically when is drawn for the first time.
@@ -91,11 +87,10 @@ class RecipesAdapter(private val context: Context) :
 
                     else -> {
                         // Collapse any other view expanded
-                        //val expandedRecipePosition = recipes.indexOf(expandedRecipe!!)
                         if (expandedRecipeIndex != -1) {
                             val previousViewHolder =
-                                recyclerView.findViewHolderForAdapterPosition(expandedRecipeIndex) as?
-                                        BaseViewHolder
+                                    recyclerView.findViewHolderForAdapterPosition(expandedRecipeIndex) as?
+                                            BaseViewHolder
                             if (previousViewHolder != null) {
                                 expandItem(previousViewHolder, expand = false, animate = true)
                             }
@@ -109,10 +104,10 @@ class RecipesAdapter(private val context: Context) :
                 }
             }
             holder.getDataBinding().root.hvIngredients.setAdapter(
-                IngredientAdapter(
-                    currentRecipe.ingredients,
-                    context
-                )
+                    IngredientAdapter(
+                            currentRecipe.ingredients,
+                            context
+                    )
             )
             holder.bind(viewModel)
         }
@@ -128,7 +123,7 @@ class RecipesAdapter(private val context: Context) :
             holder.getDataBinding().root.card_container.doOnLayout { view ->
                 originalHeight = view.height
 
-                /**
+                /*
                  * Show expandView and calculate the value for expandedHeight in next layout pass (doOnPreDraw) and
                  * hide it immediately. We use onPreDraw because it's called after layout is done. doOnNextLayout is
                  * called during layout phase which causes issues with hiding expandView.
@@ -144,9 +139,7 @@ class RecipesAdapter(private val context: Context) :
 
     private fun expandItem(holder: BaseViewHolder, expand: Boolean, animate: Boolean) {
         if (animate) {
-            val expandAnimator = getValueAnimator(
-                expand, expandDuration, AccelerateDecelerateInterpolator()
-            ) { progress ->
+            val expandAnimator = getValueAnimator(expand, expandDuration, AccelerateDecelerateInterpolator()) { progress ->
                 setExpandProgress(holder, progress)
             }
 
@@ -174,10 +167,10 @@ class RecipesAdapter(private val context: Context) :
     private fun setExpandProgress(holder: BaseViewHolder, progress: Float) {
         if (expandedHeight > 0 && originalHeight > 0) {
             holder.getDataBinding().root.card_container.layoutParams.height =
-                (originalHeight + (expandedHeight - originalHeight) * progress).toInt()
+                    (originalHeight + (expandedHeight - originalHeight) * progress).toInt()
         }
         holder.getDataBinding().root.card_container.layoutParams.width =
-            (originalWidth + (expandedWidth - originalWidth) * progress).toInt()
+                (originalWidth + (expandedWidth - originalWidth) * progress).toInt()
 
         holder.getDataBinding().root.card_container.requestLayout()
         holder.getDataBinding().root.chevron.rotation = 90 * progress
@@ -188,20 +181,18 @@ class RecipesAdapter(private val context: Context) :
  * This Binder abstracts the operations required for showing the list of the latest transactions on the dashboard, to facilitate
  * the implementation of data binding in the layout.
  */
-class RecipesBinder(
-    private val context: Context,
-    private val recipe: Recipe
-) {
+class RecipesBinder(private val context: Context,
+                    private val recipe: Recipe) {
 
     fun getRecipeTitle() = recipe.title
 
     fun getRecipeServing() = context.getString(R.string.item_recipe_serving, recipe.servings)
 
     fun getRecipeReadyTime() = context.getString(
-        R.string.item_recipe_ready_time, parseMinutes(
+            R.string.item_recipe_ready_time, parseMinutes(
             recipe.readyInMinutes,
             context
-        )
+    )
     )
 
     fun getRecipeSummary(): Spanned = Html.fromHtml(recipe.summary)
@@ -214,12 +205,4 @@ class RecipesBinder(
         val minutesFormatted = if (minutes < 10) "0${minutes}" else "$minutes"
         return "$hoursFormatted:$minutesFormatted"
     }
-}
-
-class IngredientAdapter(items: List<Ingredient>, context: Context) :
-    HighlightAdapter(items, context) {
-    override fun getItemImageUrl(item: Any) = (item as Ingredient).image
-
-    @SuppressLint("DefaultLocale")
-    override fun getItemLabel(item: Any) = (item as Ingredient).name.capitalize()
 }

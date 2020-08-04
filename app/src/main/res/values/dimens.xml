@@ -4,6 +4,7 @@
     <dimen name="list_item_horizontal_padding">16dp</dimen>
     <dimen name="toolbar_padding">21dp</dimen>
     <dimen name="recipe_list_top_padding">95dp</dimen>
+    <dimen name="highlight_image_size">65dp</dimen>
 
     <dimen name="dimen_0dp">0dp</dimen>
     <dimen name="dimen_5dp">5dp</dimen>

@@ -16,8 +16,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivHighlightImage"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="@dimen/highlight_image_size"
+            android:layout_height="@dimen/highlight_image_size"
             android:src="@{itemHighlightBinder.itemImage}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
