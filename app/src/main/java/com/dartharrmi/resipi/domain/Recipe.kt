@@ -1,5 +1,9 @@
 package com.dartharrmi.resipi.domain
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Recipe(
     val id: Long,
     val title: String,
@@ -13,5 +17,6 @@ data class Recipe(
     val glutenFree: Boolean,
     val summary: String,
     val nutrition: Nutrition,
-    var ingredients: List<Ingredient> = emptyList()
-)
+    var ingredients: List<Ingredient> = emptyList(),
+    val analyzedInstructions: List<InstructionStep>
+) : Parcelable

@@ -4,11 +4,60 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ProgressBarTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/colorBrightYellow</item>
+    </style>
+
+    <style name="AppTheme.DetailHeader" parent="TextAppearance.MdcTypographyStyles.Headline4">
+        <item name="android:layout_marginTop">@dimen/dimen_30dp</item>
+        <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
+        <item name="android:textColor">@color/title_color</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.DetailExtraInfo" parent="TextAppearance.MdcTypographyStyles.Overline">
+        <item name="android:layout_marginTop">@dimen/dimen_8dp</item>
+        <item name="android:layout_marginStart">@dimen/dimen_10dp</item>
+        <item name="android:drawablePadding">@dimen/dimen_8dp</item>
+        <item name="android:drawableTint">@color/subtitle_color</item>
+        <item name="android:textColor">@color/subtitle_color</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.DetailSummary" parent="TextAppearance.MdcTypographyStyles.Caption">
+        <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_15dp</item>
+        <item name="android:drawablePadding">@dimen/dimen_8dp</item>
+        <item name="android:drawableTint">@color/subtitle_color</item>
+        <item name="android:textColor">@color/subtitle_color</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.DetailPillCaption" parent="TextAppearance.MdcTypographyStyles.Caption">
+        <item name="android:layout_marginTop">@dimen/dimen_5dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.DetailLabel" parent="TextAppearance.MdcTypographyStyles.Headline6">
+        <item name="android:layout_marginTop">@dimen/dimen_10dp</item>
+        <item name="android:gravity">start</item>
+        <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_15dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,31 +10,36 @@
     </data>
 
     <!--
-    FrameLayout is used as top level layout because when the CardView is getting
-    animated, it needs to stay centered. Otherwise we need to animate x and y values
-    too. layout_gravity="center_horizontal" is a lot simpler.
+    FrameLayout is used as top level layout because when the CardView is getting animated, it needs
+    to stay centered. Otherwise we need to animate x and y values too. layout_gravity="center_horizontal"
+    is a lot simpler.
     -->
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/recipeCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             app:cardBackgroundColor="@color/list_item_bg_collapsed"
-            app:cardCornerRadius="6dp"
-            app:cardElevation="0dp"
-            app:cardMaxElevation="0dp"
-            tools:layout_marginLeft="15dp"
-            tools:layout_marginRight="15dp">
+            app:cardCornerRadius="@dimen/dimen_6dp"
+            app:cardElevation="@dimen/dimen_5dp"
+            app:cardMaxElevation="@dimen/dimen_5dp"
+            tools:layout_marginLeft="@dimen/dimen_15dp"
+            tools:layout_marginRight="@dimen/dimen_15dp">
 
+            <!--
+                This container makes it easier to perform calculations on expanded cards to get their real size.
+            -->
             <FrameLayout
                 android:id="@+id/card_container"
                 android:layout_width="match_parent"
@@ -44,7 +50,6 @@
                 animation happens. card_container re-sizes height and width while
                 scale_container scales the inside views to make it look natural
                 -->
-
                 <RelativeLayout
                     android:id="@+id/scale_container"
                     android:layout_width="match_parent"
@@ -53,7 +58,8 @@
                     android:paddingTop="@dimen/list_item_vertical_padding"
                     android:paddingRight="@dimen/list_item_horizontal_padding"
                     android:paddingBottom="@dimen/list_item_vertical_padding"
-                    android:transformPivotX="0dp">
+                    android:transformPivotX="0dp"
+                    tools:ignore="UselessParent">
 
                     <ImageView
                         android:id="@+id/chevron"

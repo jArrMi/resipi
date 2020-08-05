@@ -1,16 +1,20 @@
 package com.dartharrmi.resipi.ui.recipe_list
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dartharrmi.resipi.R
 import com.dartharrmi.resipi.base.ResipiFragment
+import com.dartharrmi.resipi.base.adapter.OnRecyclerViewItemClickListener
 import com.dartharrmi.resipi.databinding.FragmentRecipeListBinding
+import com.dartharrmi.resipi.domain.Recipe
 import com.dartharrmi.resipi.ui.recipe_list.adapter.LoadingFooterAdapter
 import com.dartharrmi.resipi.ui.recipe_list.adapter.RecipesAdapter
 import com.dartharrmi.resipi.utils.gone
@@ -20,9 +24,14 @@ import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class RecipesListFragment : ResipiFragment<FragmentRecipeListBinding>() {
+class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
+
+    private companion object {
+        const val ARG_QUERY = "KEY_QUERY"
+    }
 
     private var isFirstLoading = true
+    private var query = ""
     private val viewModel by currentScope.viewModel(this, RecipesListViewModel::class)
     private lateinit var recipesAdapter: RecipesAdapter
 
@@ -37,7 +46,14 @@ class RecipesListFragment : ResipiFragment<FragmentRecipeListBinding>() {
     override fun initView(inflater: LayoutInflater, container: ViewGroup?) {
         super.initView(inflater, container)
 
-        recipesAdapter = RecipesAdapter(requireContext()).apply {
+        recipesAdapter = RecipesAdapter(requireContext(), object: OnRecyclerViewItemClickListener {
+            override fun onItemClicked(item: Any?) {
+                item?.let {
+                    findNavController().navigate(RecipesListFragmentDirections.actionDestRecipeListToDestRecipeDetails(it as Recipe))
+
+                }
+            }
+        }).apply {
             addLoadStateListener { loadState ->
                 if (loadState.source.refresh is LoadState.Loading) {
                     dataBinding.root.rvRecipesList.gone()
@@ -52,14 +68,14 @@ class RecipesListFragment : ResipiFragment<FragmentRecipeListBinding>() {
                 }
 
                 val errorState = loadState.source.append as? LoadState.Error
-                    ?: loadState.source.prepend as? LoadState.Error
-                    ?: loadState.append as? LoadState.Error
-                    ?: loadState.prepend as? LoadState.Error
+                        ?: loadState.source.prepend as? LoadState.Error
+                        ?: loadState.append as? LoadState.Error
+                        ?: loadState.prepend as? LoadState.Error
                 errorState?.let {
                     Toast.makeText(
-                        requireContext(),
-                        "\uD83D\uDE28 Wooops ${it.error}",
-                        Toast.LENGTH_LONG
+                            requireContext(),
+                            "\uD83D\uDE28 Wooops ${it.error}",
+                            Toast.LENGTH_LONG
                     ).show()
                 }
             }
@@ -70,21 +86,22 @@ class RecipesListFragment : ResipiFragment<FragmentRecipeListBinding>() {
                 layoutManager = LinearLayoutManager(getViewContext())
                 adapter = recipesAdapter
                 viewTreeObserver
-                    .addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
-                        override fun onGlobalLayout() {
-                            rvRecipesList.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        .addOnGlobalLayoutListener(object: OnGlobalLayoutListener {
+                            override fun onGlobalLayout() {
+                                rvRecipesList.viewTreeObserver.removeOnGlobalLayoutListener(this)
 
-                            val appBarHeight: Int = this@with.appBarLayout.height
-                            rvRecipesList.translationY = -appBarHeight.toFloat()
-                            rvRecipesList.layoutParams.height =
-                                rvRecipesList.height + appBarHeight
-                        }
-                    })
+                                val appBarHeight: Int = this@with.appBarLayout.height
+                                rvRecipesList.translationY = -appBarHeight.toFloat()
+                                rvRecipesList.layoutParams.height =
+                                        rvRecipesList.height + appBarHeight
+                            }
+                        })
             }
 
             svSearchRecipe.queryHint = getString(R.string.search_view_hint)
-            svSearchRecipe.setOnQueryTextListener(object : OnQueryTextListener {
+            svSearchRecipe.setOnQueryTextListener(object: OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    this@RecipesListFragment.query = query.orEmpty()
                     search(query.orEmpty())
                     requireActivity().hideKeyBoard()
 
@@ -96,8 +113,32 @@ class RecipesListFragment : ResipiFragment<FragmentRecipeListBinding>() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ARG_QUERY, query)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        savedInstanceState?.let {
+            if (it.containsKey(ARG_QUERY)) {
+                query = it.getString(ARG_QUERY).orEmpty()
+                search(query)
+            } else {
+                search(query)
+            }
+        }
+    }
+
     private fun search(query: String) {
-        viewModel.getRecipes(query).subscribe { t ->
+        viewModel.getRecipes(query).doOnError {
+            Toast.makeText(
+                    requireContext(),
+                    "\uD83D\uDE28 Wooops",
+                    Toast.LENGTH_LONG
+            ).show()
+        }.subscribe { t ->
             recipesAdapter.submitData(lifecycle, t)
         }
     }
