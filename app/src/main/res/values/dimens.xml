@@ -9,6 +9,7 @@
     <dimen name="recipe_info_pill_height">110dp</dimen>
     <dimen name="recipe_info_pill_width">60dp</dimen>
     <dimen name="recipe_info_pill_icon">40dp</dimen>
+    <dimen name="ingredient_bullet_size">10dp</dimen>
 
     <dimen name="dimen_0dp">0dp</dimen>
     <dimen name="dimen_1dp">1dp</dimen>

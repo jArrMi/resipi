@@ -27,14 +27,11 @@ class RecipePillInfoView: RelativeLayout {
     private fun init(attrs: AttributeSet?) {
         LayoutInflater.from(context).inflate(R.layout.view_recipe_pill, this);
 
-
-        attrs?.let {
-            with(attrs) {
-                context.obtainStyledAttributes(it, R.styleable.RecipePillInfoView).also {
-                    findViewById<ImageView>(R.id.recipePillIcon).setImageDrawable(it.getDrawable(R.styleable.RecipePillInfoView_pillIcon))
-                    findViewById<TextView>(R.id.recipePillText).text = it.getString(R.styleable.RecipePillInfoView_pillText)
-                    it.recycle()
-                }
+        attrs?.let { attributeSet ->
+            context.obtainStyledAttributes(attributeSet, R.styleable.RecipePillInfoView).also {
+                findViewById<ImageView>(R.id.recipePillIcon).setImageDrawable(it.getDrawable(R.styleable.RecipePillInfoView_pillIcon))
+                findViewById<TextView>(R.id.recipePillText).text = it.getString(R.styleable.RecipePillInfoView_pillText)
+                it.recycle()
             }
         }
     }
