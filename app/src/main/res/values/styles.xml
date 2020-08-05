@@ -16,7 +16,7 @@
     </style>
 
     <style name="AppTheme.DetailHeader" parent="TextAppearance.MdcTypographyStyles.Headline4">
-        <item name="android:layout_marginTop">@dimen/dimen_50dp</item>
+        <item name="android:layout_marginTop">@dimen/dimen_30dp</item>
         <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
         <item name="android:textColor">@color/title_color</item>
         <item name="android:maxLines">2</item>

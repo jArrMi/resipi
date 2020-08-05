@@ -11,8 +11,17 @@ import com.dartharrmi.resipi.R
 
 class RecipePillInfoView: RelativeLayout {
 
-    private var drawable: Drawable? = null
-    private var text: String? = null
+    var drawable: Drawable? = null
+        set(value) {
+            field = value
+            findViewById<ImageView>(R.id.recipePillIcon).setImageDrawable(field)
+        }
+
+    var text: String = ""
+        set(value) {
+            field = value
+            findViewById<TextView>(R.id.recipePillText).text = field
+        }
 
     constructor(context: Context): super(context)
 

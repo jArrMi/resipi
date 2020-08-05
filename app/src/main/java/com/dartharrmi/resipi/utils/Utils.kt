@@ -13,7 +13,7 @@ object Utils {
             R.string.item_recipe_ready_time, parseMinutes(readyTime)
     )
 
-    private fun parseMinutes(totalMinutes: Int): String {
+    fun parseMinutes(totalMinutes: Int): String {
         val hours = totalMinutes / 60
         val minutes = totalMinutes % 60
 

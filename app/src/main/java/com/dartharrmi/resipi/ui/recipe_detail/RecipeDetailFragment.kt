@@ -35,6 +35,8 @@ class RecipeDetailFragment: ResipiFragment<FragmentRecipeDetailBinding>() {
 
         dataBinding.recipeBinder = RecipeDetailViewBinder(args.recipeArg, requireContext())
         with(dataBinding.root) {
+            recipeServings.text = args.recipeArg.servings.toString()
+            recipeReadyTime.text = Utils.parseMinutes(args.recipeArg.readyInMinutes)
             recipeIngredients.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter =

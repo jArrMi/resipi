@@ -80,7 +80,8 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recipeTitle"
-                    rsp:pillIcon="@drawable/ic_recipe_serving" />
+                    rsp:pillIcon="@drawable/ic_recipe_serving"
+                    rsp:pillText="25"/>
 
                 <com.dartharrmi.resipi.ui.views.RecipePillInfoView
                     android:id="@+id/recipeReadyTime"

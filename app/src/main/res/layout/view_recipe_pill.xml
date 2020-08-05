@@ -24,5 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/recipePillIcon"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:textColor="@color/colorWhite"
         tools:text="35\nmin" />
 </RelativeLayout>
