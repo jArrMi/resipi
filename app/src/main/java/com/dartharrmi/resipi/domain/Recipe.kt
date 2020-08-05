@@ -18,5 +18,5 @@ data class Recipe(
     val summary: String,
     val nutrition: Nutrition,
     var ingredients: List<Ingredient> = emptyList(),
-    val instructions: List<InstructionStep>
+    val analyzedInstructions: List<InstructionStep>
 ) : Parcelable

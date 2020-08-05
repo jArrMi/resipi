@@ -12,8 +12,11 @@ import com.dartharrmi.resipi.base.ResipiFragment
 import com.dartharrmi.resipi.databinding.FragmentRecipeDetailBinding
 import com.dartharrmi.resipi.domain.Recipe
 import com.dartharrmi.resipi.ui.recipe_detail.adapter.RecipeIngredientsAdapter
+import com.dartharrmi.resipi.ui.recipe_detail.adapter.RecipeStepAdapter
 import com.dartharrmi.resipi.ui.views.BindableImageView
 import com.dartharrmi.resipi.utils.Utils
+import com.dartharrmi.resipi.utils.gone
+import com.dartharrmi.resipi.utils.visible
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recipe_detail.view.*
 
@@ -34,7 +37,17 @@ class RecipeDetailFragment: ResipiFragment<FragmentRecipeDetailBinding>() {
         with(dataBinding.root) {
             recipeIngredients.apply {
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter = RecipeIngredientsAdapter(args.recipeArg.ingredients.map { ingredient -> ingredient.originalString })
+                adapter =
+                        RecipeIngredientsAdapter(args.recipeArg.ingredients.map { ingredient -> ingredient.originalString })
+            }
+            if (args.recipeArg.analyzedInstructions.isEmpty()) {
+                recipeNoStepsError.visible()
+                recipeSteps.gone()
+            } else {
+                recipeSteps.apply {
+                    layoutManager = LinearLayoutManager(requireContext())
+                    adapter = RecipeStepAdapter(args.recipeArg.analyzedInstructions)
+                }
             }
         }
     }

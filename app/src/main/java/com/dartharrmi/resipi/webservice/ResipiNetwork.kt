@@ -1,5 +1,7 @@
 package com.dartharrmi.resipi.webservice
 
+import com.dartharrmi.resipi.webservice.deserializer.InstructionsDeserializer
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Converter
@@ -30,12 +32,16 @@ object ResipiNetwork {
             throw IllegalArgumentException(BASE_URL_NOT_PROVIDED_MESSAGE)
         }
 
+        val customGson = GsonBuilder().apply {
+            registerTypeAdapter(InstructionsDeserializer.typeToken, InstructionsDeserializer())
+        }.create()
+
         return builder.apply {
             baseUrl(baseUrl)
             client(okHttpClient)
             addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             addConverterFactory(UnitConverterFactory)
-            addConverterFactory(GsonConverterFactory.create())
+            addConverterFactory(GsonConverterFactory.create(customGson))
         }.build()
     }
 

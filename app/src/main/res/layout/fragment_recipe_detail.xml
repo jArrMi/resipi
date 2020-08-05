@@ -57,7 +57,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/drawable_detail_background">
+                android:background="@drawable/drawable_detail_background"
+                android:paddingBottom="@dimen/dimen_15dp">
 
                 <TextView
                     android:id="@+id/recipeTitle"
@@ -152,6 +153,19 @@
                     android:layout_marginStart="@dimen/dimen_15dp"
                     android:layout_marginEnd="@dimen/dimen_15dp"
                     android:nestedScrollingEnabled="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipeStepsLabel" />
+
+                <TextView
+                    android:id="@+id/recipeNoStepsError"
+                    style="@style/AppTheme.DetailSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15dp"
+                    android:layout_marginEnd="@dimen/dimen_15dp"
+                    android:nestedScrollingEnabled="true"
+                    android:text="@string/recipe_detail_no_steps"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/recipeStepsLabel" />
             </androidx.constraintlayout.widget.ConstraintLayout>

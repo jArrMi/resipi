@@ -22,7 +22,6 @@ import com.dartharrmi.resipi.utils.visible
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import com.airbnb.lottie.LottieAnimationView
 
 class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
 

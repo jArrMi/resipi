@@ -11,4 +11,5 @@
     <string name="recipe_detail_summary">Summary</string>
     <string name="recipe_detail_ingredients">Ingredients</string>
     <string name="recipe_detail_steps">Steps</string>
+    <string name="recipe_detail_no_steps">It seems that some recipes don\'t include the instructions &#129365;</string>
 </resources>

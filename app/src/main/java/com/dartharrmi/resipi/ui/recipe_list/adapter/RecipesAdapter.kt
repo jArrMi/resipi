@@ -18,7 +18,6 @@ import com.dartharrmi.resipi.base.adapter.BasePagedRecyclerViewAdapter
 import com.dartharrmi.resipi.base.adapter.BaseRecyclerViewAdapter.BaseViewHolder
 import com.dartharrmi.resipi.base.adapter.OnRecyclerViewItemClickListener
 import com.dartharrmi.resipi.domain.Recipe
-import com.dartharrmi.resipi.ui.recipe_detail.adapter.IngredientAdapter
 import com.dartharrmi.resipi.utils.*
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
@@ -115,10 +114,10 @@ class RecipesAdapter(
                     }
                 }
                 hvIngredients.setAdapter(
-                        IngredientAdapter(
-                                currentRecipe.ingredients,
-                                context
-                        )
+                    IngredientAdapter(
+                        currentRecipe.ingredients,
+                        context
+                    )
                 )
                 recipeCard.setOnClickListener {
                     listener.onItemClicked(currentRecipe)

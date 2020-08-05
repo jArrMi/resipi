@@ -5,7 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class InstructionStep(
-    val number: Int,
-    val step: String,
-    val ingredients: List<Long>
-) : Parcelable
+        val number: Int,
+        val step: String
+): Parcelable

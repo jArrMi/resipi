@@ -3,15 +3,19 @@
 
     <data>
 
+        <variable
+            name="stepsBinder"
+            type="com.dartharrmi.resipi.ui.recipe_detail.adapter.RecipeStepBinder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:clipChildren="false"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/dimen_10dp">
 
         <TextView
             style="@style/TextAppearance.MdcTypographyStyles.Button"
@@ -19,9 +23,11 @@
             android:layout_height="@dimen/dimen_30dp"
             android:layout_marginStart="@dimen/dimen_15dp"
             android:layout_marginTop="@dimen/dimen_20dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
             android:background="@drawable/drawable_ingredient_bullte"
             android:elevation="@dimen/dimen_6dp"
             android:gravity="center"
+            android:text="@{stepsBinder.stepNumber}"
             android:textColor="@color/colorWhite"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -56,6 +62,7 @@
                 android:layout_marginEnd="@dimen/dimen_10dp"
                 android:layout_marginBottom="@dimen/dimen_10dp"
                 android:linksClickable="true"
+                android:text="@{stepsBinder.stepDetail}"
                 android:textColorLink="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
