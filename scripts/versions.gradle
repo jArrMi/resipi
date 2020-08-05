@@ -72,4 +72,6 @@ ext {
 
     // PAging
     paging_version = '3.0.0-alpha03'
+
+    lottieVersion = '3.4.1'
 }
