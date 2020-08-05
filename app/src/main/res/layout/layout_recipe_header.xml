@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/recipeTitle"
+        style="@style/AppTheme.DetailHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{recipeBinder.recipeTitle}"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Recipe Title" />
+
+    <TextView
+        android:id="@+id/recipeServings"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipeTitle"
+        android:layout_marginTop="8dp"
+        android:drawableStart="@drawable/ic_recipe_serving"
+        android:drawablePadding="2dp"
+        android:drawableTint="@color/subtitle_color"
+        android:gravity="center_horizontal"
+        android:text="@{recipeBinder.recipeServing}"
+        android:textColor="@color/subtitle_color"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        tools:text="4 Servings" />
+
+    <TextView
+        android:id="@+id/recipeReadyTime"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipeTitle"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/recipeServings"
+        android:drawableStart="@drawable/ic_recipe_ready_time_3"
+        android:drawablePadding="5dp"
+        android:drawableTint="@color/subtitle_color"
+        android:gravity="center_horizontal"
+        android:text="@{recipeBinder.recipeReadyTime}"
+        android:textColor="@color/subtitle_color"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        tools:text="2 Hrs 3 Min" />
+
+    <TextView
+        android:id="@+id/recipeSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipeServings"
+        android:layout_alignStart="@id/recipeServings"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:drawableTint="@color/subtitle_color"
+        android:ellipsize="end"
+        android:gravity="center_vertical|start"
+        android:maxLines="4"
+        android:text="@{recipeBinder.recipeSummary}"
+        android:textColor="@color/subtitle_color"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/drawable_recipe_info_pill_background">
+
+    <ImageView
+        android:id="@+id/recipePillIcon"
+        android:layout_width="@dimen/recipe_info_pill_icon"
+        android:layout_height="@dimen/recipe_info_pill_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_15dp"
+        android:background="@drawable/drawable_recipe_info_pill_icon"
+        android:padding="@dimen/dimen_10dp"
+        android:tint="@color/colorPrimaryDark"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/ic_recipe_ready_time_3" />
+
+    <TextView
+        android:id="@+id/recipePillText"
+        style="@style/AppTheme.DetailPillCaption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipePillIcon"
+        tools:text="35\nmin" />
+</RelativeLayout>
