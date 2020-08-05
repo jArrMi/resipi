@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:rsp="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="reecipe"
-            type="com.dartharrmi.resipi.domain.Recipe" />
+            name="recipeBinder"
+            type="com.dartharrmi.resipi.ui.recipe_detail.RecipeDetailViewBinder" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -21,7 +23,7 @@
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
+                android:id="@+id/detailCollapsingLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
@@ -30,19 +32,20 @@
 
 
                 <ImageView
-                    android:id="@+id/expandedImage"
+                    android:id="@+id/detailImageHeader"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:contentDescription="@{recipeBinder.recipeTitle}"
                     android:scaleType="centerCrop"
+                    android:src="@{recipeBinder.detailHeader}"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.7" />
 
                 <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
+                    android:id="@+id/detailToolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin" />
-
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -51,12 +54,107 @@
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/drawable_detail_background">
 
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <TextView
+                    android:id="@+id/recipeTitle"
+                    style="@style/AppTheme.DetailHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{recipeBinder.recipeTitle}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Recipe Title" />
+
+                <com.dartharrmi.resipi.ui.views.RecipePillInfoView
+                    android:id="@+id/recipeServings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15dp"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/recipeReadyTime"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipeTitle"
+                    rsp:pillIcon="@drawable/ic_recipe_serving" />
+
+                <com.dartharrmi.resipi.ui.views.RecipePillInfoView
+                    android:id="@+id/recipeReadyTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/recipeServings"
+                    app:layout_constraintTop_toBottomOf="@id/recipeTitle"
+                    rsp:pillIcon="@drawable/ic_recipe_ready_time_3" />
+
+                <TextView
+                    android:id="@+id/recipeSummaryLabel"
+                    style="@style/AppTheme.DetailLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:text="@string/recipe_detail_summary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipeReadyTime"
+                    tools:text="@string/recipe_detail_summary" />
+
+                <TextView
+                    android:id="@+id/recipeSummary"
+                    style="@style/AppTheme.DetailSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:linksClickable="true"
+                    android:text="@{recipeBinder.recipeSummary}"
+                    android:textColorLink="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipeSummaryLabel"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris" />
+
+                <TextView
+                    android:id="@+id/recipeIngredientsLabel"
+                    style="@style/AppTheme.DetailLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recipe_detail_ingredients"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipeSummary"
+                    tools:text="@string/recipe_detail_ingredients" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recipeIngredients"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15dp"
+                    android:layout_marginEnd="@dimen/dimen_15dp"
+                    android:nestedScrollingEnabled="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipeIngredientsLabel" />
+
+                <TextView
+                    android:id="@+id/recipeStepsLabel"
+                    style="@style/AppTheme.DetailLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recipe_detail_steps"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipeIngredients"
+                    tools:text="@string/recipe_detail_steps" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recipeSteps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15dp"
+                    android:layout_marginEnd="@dimen/dimen_15dp"
+                    android:nestedScrollingEnabled="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recipeStepsLabel" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -2,9 +2,13 @@
     <string name="app_name">Resipi</string>
 
     <string name="search_view_hint">Let\'s find some recipes…</string>
-    
+
     <!-- Recipe item on Adapter -->
     <string name="item_recipe_serving">%1$d \nServings</string>
     <string name="item_recipe_ready_time">%1$s \nfor cooking</string>
     <!-- Recipe item on Adapter -->
+
+    <string name="recipe_detail_summary">Summary</string>
+    <string name="recipe_detail_ingredients">Ingredients</string>
+    <string name="recipe_detail_steps">Steps</string>
 </resources>
