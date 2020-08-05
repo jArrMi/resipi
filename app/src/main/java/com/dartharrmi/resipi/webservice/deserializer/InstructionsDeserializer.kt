@@ -1,5 +1,6 @@
 package com.dartharrmi.resipi.webservice.deserializer
 
+import com.dartharrmi.resipi.utils.ResipiLog
 import com.dartharrmi.resipi.webservice.dto.InstructionStepDTO
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
@@ -24,6 +25,8 @@ class InstructionsDeserializer: JsonDeserializer<List<InstructionStepDTO>> {
          * Many thanks, variance from Java.
          */
         val typeToken: Type = object: TypeToken<MutableList<InstructionStepDTO>>() {}.type
+
+        val tag = ResipiLog.makeLogTag("Deserializer")
     }
 
     override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): List<InstructionStepDTO> {
@@ -39,6 +42,7 @@ class InstructionsDeserializer: JsonDeserializer<List<InstructionStepDTO>> {
                 }.toList()
             }
         } catch (e: Exception) {
+            ResipiLog.LOGE(tag, "Error parsing the instructions array", e)
             emptyList()
         }
     }

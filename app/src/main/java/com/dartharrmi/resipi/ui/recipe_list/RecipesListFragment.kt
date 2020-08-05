@@ -1,5 +1,6 @@
 package com.dartharrmi.resipi.ui.recipe_list
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
@@ -25,7 +26,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
 
+    private companion object {
+        const val ARG_QUERY = "KEY_QUERY"
+    }
+
     private var isFirstLoading = true
+    private var query = ""
     private val viewModel by currentScope.viewModel(this, RecipesListViewModel::class)
     private lateinit var recipesAdapter: RecipesAdapter
 
@@ -43,8 +49,7 @@ class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
         recipesAdapter = RecipesAdapter(requireContext(), object: OnRecyclerViewItemClickListener {
             override fun onItemClicked(item: Any?) {
                 item?.let {
-                    findNavController().navigate(RecipesListFragmentDirections
-                                                         .actionDestRecipeListToDestRecipeDetails(it as Recipe))
+                    findNavController().navigate(RecipesListFragmentDirections.actionDestRecipeListToDestRecipeDetails(it as Recipe))
 
                 }
             }
@@ -96,6 +101,7 @@ class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
             svSearchRecipe.queryHint = getString(R.string.search_view_hint)
             svSearchRecipe.setOnQueryTextListener(object: OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    this@RecipesListFragment.query = query.orEmpty()
                     search(query.orEmpty())
                     requireActivity().hideKeyBoard()
 
@@ -107,8 +113,32 @@ class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ARG_QUERY, query)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
+        savedInstanceState?.let {
+            if (it.containsKey(ARG_QUERY)) {
+                query = it.getString(ARG_QUERY).orEmpty()
+                search(query)
+            } else {
+                search(query)
+            }
+        }
+    }
+
     private fun search(query: String) {
-        viewModel.getRecipes(query).subscribe { t ->
+        viewModel.getRecipes(query).doOnError {
+            Toast.makeText(
+                    requireContext(),
+                    "\uD83D\uDE28 Wooops",
+                    Toast.LENGTH_LONG
+            ).show()
+        }.subscribe { t ->
             recipesAdapter.submitData(lifecycle, t)
         }
     }
