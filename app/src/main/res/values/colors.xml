@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#F9D758</color>
-    <color name="colorPrimaryDark">#C3A624</color>
+    <color name="colorPrimaryDark">#C3A624</color> <!-- Did you know this color's name is Hokey Pokey -->
     <color name="colorAccent">#03DAC5</color>
 
     <color name="title_color">#000000</color>
