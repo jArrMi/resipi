@@ -1,11 +1,14 @@
 package com.dartharrmi.resipi.domain
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@Entity(tableName = "recipes")
 data class Recipe(
-    val id: Long,
+    @PrimaryKey val id: Long,
     val title: String,
     val readyInMinutes: Int,
     val servings: Int,
