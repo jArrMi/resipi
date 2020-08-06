@@ -9,6 +9,6 @@ object UseCasesModule {
     val module = module {
 
         // Get Recipes Use Case
-        single<IGetRecipesUseCase> { GetRecipesUseCaseCase(get()) }
+        single<IGetRecipesUseCase> { GetRecipesUseCaseCase(get(), get(), get(), get()) }
     }
 }

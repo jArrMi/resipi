@@ -1,12 +1,16 @@
 package com.dartharrmi.resipi.usecases
 
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.rxjava2.flowable
 import com.dartharrmi.resipi.domain.Recipe
 import com.dartharrmi.resipi.repositories.ISpoonacularDataSource.Repository
-import com.dartharrmi.resipi.repositories.paging.RecipePagingSource
+import com.dartharrmi.resipi.repositories.dao.RecipeDao
+import com.dartharrmi.resipi.repositories.dao.RemoteKeyDao
+import com.dartharrmi.resipi.repositories.db.RecipeDB
+import com.dartharrmi.resipi.repositories.paging.RecipesRemoteMediator
 import io.reactivex.Flowable
 
 interface IGetRecipesUseCase {
@@ -30,7 +34,7 @@ interface IGetRecipesUseCase {
          * @param [ingredientFile]      The name of the image file returned by Spoonacular.
          */
         fun getIngredientUrl(sizeReplacement: String = SIZE_250_X_250, ingredientFile: String) =
-            "$PREFIX_INGREDIENT_URL$sizeReplacement/$ingredientFile"
+                "$PREFIX_INGREDIENT_URL$sizeReplacement/$ingredientFile"
 
         /**
          * Returns the URL for getting a recipe's image.
@@ -44,10 +48,19 @@ interface IGetRecipesUseCase {
     fun execute(query: String): Flowable<PagingData<Recipe>>
 }
 
-class GetRecipesUseCaseCase(private val repository: Repository) : IGetRecipesUseCase {
+class GetRecipesUseCaseCase(private val repository: Repository,
+                            private val database: RecipeDB,
+                            private val dao: RecipeDao,
+                            private val remoteKeysDao: RemoteKeyDao): IGetRecipesUseCase {
 
-    override fun execute(query: String): Flowable<PagingData<Recipe>> =
-        Pager(PagingConfig(pageSize = 10)) {
-            RecipePagingSource(query, repository)
-        }.flowable
+    @ExperimentalPagingApi
+    override fun execute(query: String): Flowable<PagingData<Recipe>> {
+        val pagingSourceFactory = { dao.pagingSource(query) }
+
+        return Pager(PagingConfig(pageSize = 10),
+                     remoteMediator = RecipesRemoteMediator(
+                             query, repository, database, dao, remoteKeysDao
+                     ), pagingSourceFactory = pagingSourceFactory).flowable
+    }
+
 }
