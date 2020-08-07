@@ -3,7 +3,9 @@ package com.dartharrmi.resipi.ui.recipe_detail
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.ObservableField
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,8 +17,6 @@ import com.dartharrmi.resipi.ui.recipe_detail.adapter.RecipeIngredientsAdapter
 import com.dartharrmi.resipi.ui.recipe_detail.adapter.RecipeStepAdapter
 import com.dartharrmi.resipi.ui.views.BindableImageView
 import com.dartharrmi.resipi.utils.Utils
-import com.dartharrmi.resipi.utils.gone
-import com.dartharrmi.resipi.utils.visible
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recipe_detail.view.*
 
@@ -35,21 +35,21 @@ class RecipeDetailFragment: ResipiFragment<FragmentRecipeDetailBinding>() {
 
         dataBinding.recipeBinder = RecipeDetailViewBinder(args.recipeArg, requireContext())
         with(dataBinding.root) {
-            recipeServings.text = args.recipeArg.servings.toString()
-            recipeReadyTime.text = Utils.parseMinutes(args.recipeArg.readyInMinutes)
+            recipeServings.text = getString(R.string.recipe_pill_srvings, args.recipeArg.servings.toString())
+            recipeReadyTime.text = getString(R.string.recipe_pill_cook_time, Utils.parseMinutes(args.recipeArg.readyInMinutes))
+            args.recipeArg.nutrition.caloricBreakdown.run {
+                recipeFat.text = getString(R.string.recipe_pill_fat, this.percentFat.toString())
+                recipeCalories.text = getString(R.string.recipe_pill_cal, this.percentProtein.toString())
+                recipeCarbs.text = getString(R.string.recipe_pill_carbs, this.percentCarbs.toString())
+
+            }
             recipeIngredients.apply {
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter =
-                        RecipeIngredientsAdapter(args.recipeArg.ingredients.map { ingredient -> ingredient.originalString })
+                adapter = RecipeIngredientsAdapter(args.recipeArg.ingredients.map { ingredient -> ingredient.originalString })
             }
-            if (args.recipeArg.analyzedInstructions.isEmpty()) {
-                recipeNoStepsError.visible()
-                recipeSteps.gone()
-            } else {
-                recipeSteps.apply {
-                    layoutManager = LinearLayoutManager(requireContext())
-                    adapter = RecipeStepAdapter(args.recipeArg.analyzedInstructions)
-                }
+            recipeSteps.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = RecipeStepAdapter(args.recipeArg.analyzedInstructions)
             }
         }
     }
@@ -73,13 +73,22 @@ class RecipeDetailViewBinder(private val recipe: Recipe, private val context: Co
 
     fun getRecipeTitle() = recipe.title
 
-    fun getRecipeServings() = Utils.formatServings(recipe.servings, context)
+    fun isVeggie() = recipe.vegan || recipe.vegetarian
 
-    fun getRecipeServingDrawableId() = R.drawable.ic_recipe_serving
+    fun isDairyFree() = recipe.dairyFree
 
-    fun getRecipeCookingTime() = Utils.formatServings(recipe.readyInMinutes, context)
-
-    fun getRecipeCookingTimwDrawableId() = R.drawable.ic_recipe_ready_time_3
+    fun isGluteFree() = recipe.glutenFree
 
     fun getRecipeSummary() = Utils.formatSummary(recipe.summary)
+
+    fun showStepsList() = recipe.analyzedInstructions.isNotEmpty()
+
+    fun onRecipeTypeClick(view: View) {
+        when {
+            recipe.vegetarian -> Toast.makeText(context, context.getString(R.string.vegetarian), Toast.LENGTH_LONG).show()
+            recipe.vegan -> Toast.makeText(context, context.getString(R.string.vegan), Toast.LENGTH_LONG).show()
+            recipe.dairyFree -> Toast.makeText(context, context.getString(R.string.dairy_free), Toast.LENGTH_LONG).show()
+            recipe.glutenFree -> Toast.makeText(context, context.getString(R.string.gluten_free), Toast.LENGTH_LONG).show()
+        }
+    }
 }

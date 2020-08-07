@@ -7,7 +7,6 @@
 
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="textInputStyle">@style/AppTheme.SearchView</item>
     </style>
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -66,9 +65,5 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:maxLines">2</item>
         <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="AppTheme.SearchView" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
-        <item name="boxStrokeColor">@color/colorHokeyPokey</item>
     </style>
 </resources>

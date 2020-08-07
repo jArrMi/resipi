@@ -87,6 +87,7 @@
                         android:layout_marginTop="@dimen/dimen_8dp"
                         app:layout_constraintEnd_toStartOf="@+id/recipeReadyTime"
                         app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/recipeTitle"
                         rsp:pillIcon="@drawable/ic_recipe_serving"
@@ -97,11 +98,41 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toStartOf="@+id/recipeCalories"
                         app:layout_constraintStart_toEndOf="@+id/recipeServings"
                         app:layout_constraintTop_toBottomOf="@id/recipeTitle"
                         rsp:pillIcon="@drawable/ic_recipe_ready_time_3" />
+
+                    <com.dartharrmi.resipi.ui.views.RecipePillInfoView
+                        android:id="@+id/recipeCalories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        app:layout_constraintEnd_toStartOf="@+id/recipeCarbs"
+                        app:layout_constraintStart_toEndOf="@+id/recipeReadyTime"
+                        app:layout_constraintTop_toBottomOf="@id/recipeTitle"
+                        rsp:pillIcon="@drawable/ic_caloric_breakdown" />
+
+                    <com.dartharrmi.resipi.ui.views.RecipePillInfoView
+                        android:id="@+id/recipeCarbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        app:layout_constraintEnd_toStartOf="@+id/recipeFat"
+                        app:layout_constraintStart_toEndOf="@+id/recipeCalories"
+                        app:layout_constraintTop_toBottomOf="@id/recipeTitle"
+                        rsp:pillIcon="@drawable/ic_caloric_breakdown" />
+
+                    <com.dartharrmi.resipi.ui.views.RecipePillInfoView
+                        android:id="@+id/recipeFat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:layout_marginEnd="@dimen/dimen_15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/recipeCarbs"
+                        app:layout_constraintTop_toBottomOf="@id/recipeTitle"
+                        rsp:pillIcon="@drawable/ic_caloric_breakdown" />
 
                     <TextView
                         android:id="@+id/recipeSummaryLabel"

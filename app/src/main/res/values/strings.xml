@@ -6,6 +6,16 @@
     <!-- Recipe item on Adapter -->
     <string name="item_recipe_serving">%1$d \nServings</string>
     <string name="item_recipe_ready_time">%1$s \nfor cooking</string>
+    <string name="recipe_pill_cook_time">%1$s \nCook</string>
+    <string name="recipe_pill_srvings">%1$s \nServ.</string>
+    <string name="recipe_pill_carbs">%1$s \nCarbs</string>
+    <string name="recipe_pill_fat">%1$s \nFat</string>
+    <string name="recipe_pill_cal">%1$s \nCal.</string>
+
+    <string name="vegan">Vegan</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="gluten_free">Gluten Free</string>
+    <string name="dairy_free">Dairy Free</string>
     <!-- Recipe item on Adapter -->
 
     <string name="recipe_detail_summary">Summary</string>
