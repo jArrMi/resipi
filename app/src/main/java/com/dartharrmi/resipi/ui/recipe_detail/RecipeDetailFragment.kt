@@ -83,12 +83,18 @@ class RecipeDetailViewBinder(private val recipe: Recipe, private val context: Co
 
     fun showStepsList() = recipe.analyzedInstructions.isNotEmpty()
 
-    fun onRecipeTypeClick(view: View) {
+    fun onGlutenFreeClick(view: View) {
+        Toast.makeText(context, context.getString(R.string.gluten_free), Toast.LENGTH_LONG).show()
+    }
+
+    fun onVeganClick(view: View) {
         when {
             recipe.vegetarian -> Toast.makeText(context, context.getString(R.string.vegetarian), Toast.LENGTH_LONG).show()
             recipe.vegan -> Toast.makeText(context, context.getString(R.string.vegan), Toast.LENGTH_LONG).show()
-            recipe.dairyFree -> Toast.makeText(context, context.getString(R.string.dairy_free), Toast.LENGTH_LONG).show()
-            recipe.glutenFree -> Toast.makeText(context, context.getString(R.string.gluten_free), Toast.LENGTH_LONG).show()
         }
+    }
+
+    fun onDairyFreeClick(view: View) {
+        Toast.makeText(context, context.getString(R.string.dairy_free), Toast.LENGTH_LONG).show()
     }
 }
