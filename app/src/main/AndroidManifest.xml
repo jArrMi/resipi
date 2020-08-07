@@ -14,7 +14,7 @@
 
         <activity
             android:name=".navigation.NavigationActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="sensor"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
