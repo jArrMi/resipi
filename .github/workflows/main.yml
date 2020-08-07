@@ -27,6 +27,7 @@ jobs:
 
   apk:
     name: Generate APK
+    needs: test
     runs-on: macos-latest
 
     steps:
