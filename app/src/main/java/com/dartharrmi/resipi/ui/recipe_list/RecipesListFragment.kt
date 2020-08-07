@@ -20,6 +20,7 @@ import com.dartharrmi.resipi.ui.recipe_list.adapter.RecipesAdapter
 import com.dartharrmi.resipi.utils.gone
 import com.dartharrmi.resipi.utils.hideKeyBoard
 import com.dartharrmi.resipi.utils.visible
+import kotlinx.android.synthetic.main.fragment_recipe_list.*
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -116,6 +117,14 @@ class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
 
                 override fun onQueryTextChange(newText: String?): Boolean = false
             })
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (recipesAdapter.itemCount > 0) {
+            emptyState.gone()
         }
     }
 

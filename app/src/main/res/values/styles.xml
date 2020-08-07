@@ -19,11 +19,12 @@
         <item name="colorAccent">@color/colorWebOrange</item>
     </style>
 
-    <style name="AppTheme.DetailHeader" parent="TextAppearance.MdcTypographyStyles.Headline4">
+    <style name="AppTheme.DetailHeader" parent="TextAppearance.MdcTypographyStyles.Headline5">
         <item name="android:layout_marginTop">@dimen/dimen_30dp</item>
         <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_15dp</item>
         <item name="android:textColor">@color/colorTitle</item>
-        <item name="android:maxLines">2</item>
+        <item name="android:maxLines">3</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -65,11 +66,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="AppTheme.CardTitle" parent="TextAppearance.MdcTypographyStyles.Headline6">
+    <style name="AppTheme.CardTitle" parent="TextAppearance.MdcTypographyStyles.Subtitle2">
         <item name="android:layout_marginTop">@dimen/dimen_2dp</item>
         <item name="android:layout_marginEnd">@dimen/dimen_16dp</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:maxLines">2</item>
         <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">@color/colorTitle</item>
