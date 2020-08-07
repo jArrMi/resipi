@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="recipeBinder"
             type="com.dartharrmi.resipi.ui.recipe_detail.RecipeDetailViewBinder" />
@@ -70,6 +72,7 @@
                     android:paddingBottom="@dimen/dimen_15dp">
 
                     <TextView
+
                         android:id="@+id/recipeTitle"
                         style="@style/AppTheme.DetailHeader"
                         android:layout_width="wrap_content"
@@ -78,6 +81,48 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Recipe Title" />
+
+                    <ImageView
+                        android:id="@+id/recipeGlutenFree"
+                        android:layout_width="@dimen/dimen_20dp"
+                        android:layout_height="@dimen/dimen_20dp"
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginBottom="@dimen/dimen_8dp"
+                        android:onClick="@{recipeBinder::onRecipeTypeClick}"
+                        android:src="@drawable/ic_gluten_free"
+                        android:tint="@color/colorHokeyPokey"
+                        android:visibility="@{recipeBinder.gluteFree ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="@id/recipeTitle"
+                        app:layout_constraintStart_toEndOf="@id/recipeTitle"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/recipeVeggie"
+                        android:layout_width="@dimen/dimen_20dp"
+                        android:layout_height="@dimen/dimen_20dp"
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginBottom="@dimen/dimen_8dp"
+                        android:onClick="@{recipeBinder::onRecipeTypeClick}"
+                        android:src="@drawable/ic_veggie"
+                        android:tint="@color/colorHokeyPokey"
+                        android:visibility="@{recipeBinder.veggie ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="@id/recipeTitle"
+                        app:layout_constraintStart_toEndOf="@id/recipeGlutenFree"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/recipeDairyFree"
+                        android:layout_width="@dimen/dimen_20dp"
+                        android:layout_height="@dimen/dimen_20dp"
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginBottom="@dimen/dimen_8dp"
+                        android:onClick="@{recipeBinder::onRecipeTypeClick}"
+                        android:src="@drawable/ic_dairy_free"
+                        android:tint="@color/colorHokeyPokey"
+                        android:visibility="@{recipeBinder.dairyFree ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="@id/recipeTitle"
+                        app:layout_constraintStart_toEndOf="@id/recipeVeggie"
+                        tools:ignore="ContentDescription" />
 
                     <com.dartharrmi.resipi.ui.views.RecipePillInfoView
                         android:id="@+id/recipeServings"
@@ -194,6 +239,7 @@
                         android:layout_marginStart="@dimen/dimen_15dp"
                         android:layout_marginEnd="@dimen/dimen_15dp"
                         android:nestedScrollingEnabled="true"
+                        android:visibility="@{recipeBinder.showStepsList ? View.VISIBLE : View.GONE}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/recipeStepsLabel" />
 
@@ -206,7 +252,7 @@
                         android:layout_marginEnd="@dimen/dimen_15dp"
                         android:nestedScrollingEnabled="true"
                         android:text="@string/recipe_detail_no_steps"
-                        android:visibility="gone"
+                        android:visibility="@{!recipeBinder.showStepsList ? View.VISIBLE : View.GONE}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/recipeStepsLabel" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
