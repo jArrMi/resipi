@@ -64,6 +64,14 @@ This project follow a single Activity pattern and Jetpack Navigation in order to
 * **Picasso:** Picasso allows for hassle-free image loading in your application—often in one line of code!
     * See: [Picasso](https://square.github.io/picasso/)
 
+# 3. Unit test
+* **Windows:** gradlew assembleDebug --stacktrace
+* **macOS & Linux:** ./gradlew assembleDebug --stacktrace
+
+# 4. CI
+This projects includes integration with Github Actions, everytime a pull is merged to the main branch, a new job triggers run the unit test and builds a new APK
+
+
 # References
 
 * Single Activity: Why, When, and How:
