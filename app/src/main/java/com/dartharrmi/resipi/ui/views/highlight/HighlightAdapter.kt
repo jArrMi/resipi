@@ -1,11 +1,13 @@
-package com.dartharrmi.resipi.ui.views
+package com.dartharrmi.resipi.ui.views.highlight
 
 import android.content.Context
 import android.graphics.drawable.Drawable
 import androidx.databinding.ObservableField
 import com.dartharrmi.resipi.BR
 import com.dartharrmi.resipi.R
+import com.dartharrmi.resipi.R.drawable
 import com.dartharrmi.resipi.base.adapter.BaseRecyclerViewAdapter
+import com.dartharrmi.resipi.ui.views.BindableImageView
 import com.dartharrmi.resipi.utils.transformation.CircleImageTransform
 import com.squareup.picasso.Picasso
 
@@ -23,11 +25,11 @@ abstract class HighlightAdapter(private val items: List<Any>, private val contex
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val currentItem = items[position]
         holder.bind(
-            HighlightBinder(
-                getItemImageUrl(currentItem),
-                getItemLabel(currentItem),
-                context
-            )
+                HighlightBinder(
+                        getItemImageUrl(currentItem),
+                        getItemLabel(currentItem),
+                        context
+                )
         )
     }
 }
@@ -43,9 +45,9 @@ class HighlightBinder(
     init {
         // Picasso keeps a weak reference to the target so it needs to be stored in a field
         bindableFieldTarget = BindableImageView(
-            transactionImage,
-            context.resources,
-            R.drawable.ic_launcher_foreground
+                transactionImage,
+                context.resources,
+                drawable.ic_launcher_foreground
         )
         Picasso.get()
             .load(itemImage)

@@ -2,7 +2,7 @@ package com.dartharrmi.resipi.ui.recipe_list.adapter
 
 import android.content.Context
 import com.dartharrmi.resipi.domain.Ingredient
-import com.dartharrmi.resipi.ui.views.HighlightAdapter
+import com.dartharrmi.resipi.ui.views.highlight.HighlightAdapter
 import java.util.*
 
 class IngredientAdapter(items: List<Ingredient>,

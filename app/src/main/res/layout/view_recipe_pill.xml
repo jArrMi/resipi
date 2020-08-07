@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/dimen_15dp"
         android:background="@drawable/drawable_recipe_info_pill_icon"
         android:padding="@dimen/dimen_10dp"
-        android:tint="@color/colorPrimaryDark"
+        android:tint="@color/colorHokeyPokey"
         tools:ignore="ContentDescription"
         tools:src="@drawable/ic_recipe_ready_time_3" />
 

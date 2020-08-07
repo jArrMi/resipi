@@ -5,6 +5,7 @@
     <dimen name="toolbar_padding">21dp</dimen>
     <dimen name="recipe_list_top_padding">95dp</dimen>
     <dimen name="highlight_image_size">65dp</dimen>
+    <dimen name="detail_container_corner">@dimen/dimen_30dp</dimen>
 
     <dimen name="recipe_info_pill_height">110dp</dimen>
     <dimen name="recipe_info_pill_width">60dp</dimen>

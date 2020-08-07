@@ -1,11 +1,11 @@
-package com.dartharrmi.resipi.ui.views
+package com.dartharrmi.resipi.ui.views.highlight
 
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dartharrmi.resipi.R
-import com.dartharrmi.resipi.ui.views.Orientation.HORIZONTAL
+import com.dartharrmi.resipi.ui.views.highlight.Orientation.HORIZONTAL
 import kotlinx.android.synthetic.main.view_highlight.view.*
 
 enum class Orientation {

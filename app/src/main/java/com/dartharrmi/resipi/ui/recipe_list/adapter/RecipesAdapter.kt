@@ -119,7 +119,7 @@ class RecipesAdapter(
                         context
                     )
                 )
-                recipeCard.setOnClickListener {
+                recipeCardContainer.setOnClickListener {
                     listener.onItemClicked(currentRecipe)
                 }
             }
@@ -134,7 +134,7 @@ class RecipesAdapter(
         if (expandedHeight < 0) {
             expandedHeight = 0
 
-            holder.getDataBinding().root.card_container.doOnLayout { view ->
+            holder.getDataBinding().root.recipeCardContainer.doOnLayout { view ->
                 originalHeight = view.height
 
                 /*
@@ -184,13 +184,13 @@ class RecipesAdapter(
 
     private fun setExpandProgress(holder: BaseViewHolder, progress: Float) {
         if (expandedHeight > 0 && originalHeight > 0) {
-            holder.getDataBinding().root.card_container.layoutParams.height =
+            holder.getDataBinding().root.recipeCardContainer.layoutParams.height =
                     (originalHeight + (expandedHeight - originalHeight) * progress).toInt()
         }
-        holder.getDataBinding().root.card_container.layoutParams.width =
+        holder.getDataBinding().root.recipeCardContainer.layoutParams.width =
                 (originalWidth + (expandedWidth - originalWidth) * progress).toInt()
 
-        holder.getDataBinding().root.card_container.requestLayout()
+        holder.getDataBinding().root.recipeCardContainer.requestLayout()
         holder.getDataBinding().root.chevron.rotation = 90 * progress
     }
 }
