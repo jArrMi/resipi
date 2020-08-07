@@ -16,13 +16,13 @@
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ProgressBarTheme" parent="Theme.MaterialComponents.Light">
-        <item name="colorAccent">@color/colorBrightYellow</item>
+        <item name="colorAccent">@color/colorWebOrange</item>
     </style>
 
     <style name="AppTheme.DetailHeader" parent="TextAppearance.MdcTypographyStyles.Headline4">
         <item name="android:layout_marginTop">@dimen/dimen_30dp</item>
         <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
-        <item name="android:textColor">@color/title_color</item>
+        <item name="android:textColor">@color/colorTitle</item>
         <item name="android:maxLines">2</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -31,8 +31,8 @@
         <item name="android:layout_marginTop">@dimen/dimen_8dp</item>
         <item name="android:layout_marginStart">@dimen/dimen_10dp</item>
         <item name="android:drawablePadding">@dimen/dimen_8dp</item>
-        <item name="android:drawableTint">@color/subtitle_color</item>
-        <item name="android:textColor">@color/subtitle_color</item>
+        <item name="android:drawableTint">@color/colorSubtitle</item>
+        <item name="android:textColor">@color/colorSubtitle</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -41,8 +41,8 @@
         <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
         <item name="android:layout_marginEnd">@dimen/dimen_15dp</item>
         <item name="android:drawablePadding">@dimen/dimen_8dp</item>
-        <item name="android:drawableTint">@color/subtitle_color</item>
-        <item name="android:textColor">@color/subtitle_color</item>
+        <item name="android:drawableTint">@color/colorSubtitle</item>
+        <item name="android:textColor">@color/colorSubtitle</item>
         <item name="android:gravity">center_vertical|start</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -72,7 +72,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:textColor">@color/colorHokeyPokey</item>
+        <item name="android:textColor">@color/colorTitle</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -92,7 +92,7 @@
         <item name="android:drawablePadding">@dimen/dimen_2dp</item>
         <item name="android:drawableTint">@color/colorHokeyPokey</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="android:textColor">@color/colorHokeyPokey</item>
+        <item name="android:textColor">@color/colorSubtitle</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -103,7 +103,7 @@
         <item name="android:drawablePadding">@dimen/dimen_5dp</item>
         <item name="android:drawableTint">@color/colorHokeyPokey</item>
         <item name="android:gravity">center_horizontal</item>
-        <item name="android:textColor">@color/colorHokeyPokey</item>
+        <item name="android:textColor">@color/colorSubtitle</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>
