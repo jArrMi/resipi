@@ -21,21 +21,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <!--<intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="@string/deep_link_host_email_verification"
-                    android:scheme="@string/deep_link_scheme" />
-
-                <data
-                    android:host="@string/deep_link_host_recover_pin"
-                    android:scheme="@string/deep_link_scheme" />
-            </intent-filter>-->
         </activity>
     </application>
 </manifest>
