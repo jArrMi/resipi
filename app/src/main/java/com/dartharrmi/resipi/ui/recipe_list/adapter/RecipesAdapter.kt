@@ -1,7 +1,7 @@
 package com.dartharrmi.resipi.ui.recipe_list.adapter
 
 import android.content.Context
-import android.text.Spanned
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -10,15 +10,20 @@ import androidx.core.animation.doOnStart
 import androidx.core.view.doOnLayout
 import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableField
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.dartharrmi.resipi.BR
 import com.dartharrmi.resipi.R
+import com.dartharrmi.resipi.R.drawable
 import com.dartharrmi.resipi.base.adapter.BasePagedRecyclerViewAdapter
 import com.dartharrmi.resipi.base.adapter.BaseRecyclerViewAdapter.BaseViewHolder
 import com.dartharrmi.resipi.base.adapter.OnRecyclerViewItemClickListener
 import com.dartharrmi.resipi.domain.Recipe
+import com.dartharrmi.resipi.ui.views.BindableImageView
 import com.dartharrmi.resipi.utils.*
+import com.dartharrmi.resipi.utils.transformation.CircleImageTransform
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
 class RecipesItemCallback: BasePagedRecyclerViewAdapter.BaseItemCallback<Recipe>() {
@@ -77,7 +82,7 @@ class RecipesAdapter(
 
             expandItem(holder, expand = currentRecipe == expandedRecipe, animate = false)
             with(holder.getDataBinding().root) {
-                chevron.setOnClickListener {
+                cardExpandArrow.setOnClickListener {
                     when (expandedRecipe) {
                         null -> {
                             // Expand the recipe
@@ -113,13 +118,13 @@ class RecipesAdapter(
                         }
                     }
                 }
-                hvIngredients.setAdapter(
-                    IngredientAdapter(
-                        currentRecipe.ingredients,
-                        context
-                    )
+                cardIngredients.setAdapter(
+                        IngredientAdapter(
+                                currentRecipe.ingredients,
+                                context
+                        )
                 )
-                recipeCardContainer.setOnClickListener {
+                cardContentContainer.setOnClickListener {
                     listener.onItemClicked(currentRecipe)
                 }
             }
@@ -134,7 +139,7 @@ class RecipesAdapter(
         if (expandedHeight < 0) {
             expandedHeight = 0
 
-            holder.getDataBinding().root.recipeCardContainer.doOnLayout { view ->
+            holder.getDataBinding().root.cardContentContainer.doOnLayout { view ->
                 originalHeight = view.height
 
                 /*
@@ -142,10 +147,10 @@ class RecipesAdapter(
                  * hide it immediately. We use onPreDraw because it's called after layout is done. doOnNextLayout is
                  * called during layout phase which causes issues with hiding expandView.
                  */
-                holder.getDataBinding().root.expand_view.visible()
+                holder.getDataBinding().root.cardExpandView.visible()
                 view.doOnPreDraw {
                     expandedHeight = view.height
-                    holder.getDataBinding().root.expand_view.gone()
+                    holder.getDataBinding().root.cardExpandView.gone()
                 }
             }
         }
@@ -163,11 +168,11 @@ class RecipesAdapter(
 
             if (expand) {
                 expandAnimator.doOnStart {
-                    holder.getDataBinding().root.expand_view.visible()
+                    holder.getDataBinding().root.cardExpandView.visible()
                 }
             } else {
                 expandAnimator.doOnEnd {
-                    holder.getDataBinding().root.expand_view.gone()
+                    holder.getDataBinding().root.cardExpandView.gone()
                 }
             }
 
@@ -175,7 +180,7 @@ class RecipesAdapter(
         } else {
             // Expand the view if it was previously attached
             if (expand && expandedHeight >= 0) {
-                holder.getDataBinding().root.expand_view.visible()
+                holder.getDataBinding().root.cardExpandView.visible()
             }
             val progress = if (expand) 1f else 0f
             setExpandProgress(holder, progress = progress)
@@ -184,14 +189,14 @@ class RecipesAdapter(
 
     private fun setExpandProgress(holder: BaseViewHolder, progress: Float) {
         if (expandedHeight > 0 && originalHeight > 0) {
-            holder.getDataBinding().root.recipeCardContainer.layoutParams.height =
+            holder.getDataBinding().root.cardContentContainer.layoutParams.height =
                     (originalHeight + (expandedHeight - originalHeight) * progress).toInt()
         }
-        holder.getDataBinding().root.recipeCardContainer.layoutParams.width =
+        holder.getDataBinding().root.cardContentContainer.layoutParams.width =
                 (originalWidth + (expandedWidth - originalWidth) * progress).toInt()
 
-        holder.getDataBinding().root.recipeCardContainer.requestLayout()
-        holder.getDataBinding().root.chevron.rotation = 90 * progress
+        holder.getDataBinding().root.cardContentContainer.requestLayout()
+        holder.getDataBinding().root.cardExpandArrow.rotation = 90 * progress
     }
 }
 
@@ -204,11 +209,25 @@ class RecipesBinder(
         private val recipe: Recipe
 ) {
 
+    var recipeImage: ObservableField<Drawable> = ObservableField()
+    private var bindableFieldTarget: BindableImageView
+
+    init {
+        // Picasso keeps a weak reference to the target so it needs to be stored in a field
+        bindableFieldTarget = BindableImageView(
+                recipeImage,
+                context.resources,
+                drawable.ic_launcher_foreground
+        )
+        Picasso.get()
+                .load(recipe.image)
+                .transform(CircleImageTransform())
+                .into(bindableFieldTarget)
+    }
+
     fun getRecipeTitle() = recipe.title
 
     fun getRecipeServing() = Utils.formatServings(recipe.servings, context)
 
-    fun getRecipeReadyTime() = Utils.formatServings(recipe.readyInMinutes, context)
-
-    fun getRecipeSummary(): Spanned = Utils.formatSummary(recipe.summary)
+    fun getRecipeReadyTime() = Utils.formatReadyTime(recipe.readyInMinutes, context)
 }

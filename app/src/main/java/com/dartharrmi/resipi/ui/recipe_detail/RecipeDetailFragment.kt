@@ -35,8 +35,8 @@ class RecipeDetailFragment: ResipiFragment<FragmentRecipeDetailBinding>() {
 
         dataBinding.recipeBinder = RecipeDetailViewBinder(args.recipeArg, requireContext())
         with(dataBinding.root) {
-            recipeServings.text = getString(R.string.recipe_pill_srvings, args.recipeArg.servings.toString())
-            recipeReadyTime.text = getString(R.string.recipe_pill_cook_time, Utils.parseMinutes(args.recipeArg.readyInMinutes))
+            cardServings.text = getString(R.string.recipe_pill_srvings, args.recipeArg.servings.toString())
+            cardReadyTime.text = getString(R.string.recipe_pill_cook_time, Utils.parseMinutes(args.recipeArg.readyInMinutes))
             args.recipeArg.nutrition.caloricBreakdown.run {
                 recipeFat.text = getString(R.string.recipe_pill_fat, this.percentFat.toString())
                 recipeCalories.text = getString(R.string.recipe_pill_cal, this.percentProtein.toString())
