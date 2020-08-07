@@ -34,7 +34,7 @@
             tools:text="1" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/recipeCard"
+            android:id="@+id/cardContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

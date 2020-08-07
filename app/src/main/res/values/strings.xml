@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">Resipi</string>
+    <string name="app_name">Resepi</string>
 
     <string name="search_view_hint">Let\'s find some recipes…</string>
+    <string name="empty_state">Don\'t you know what to cook? &#129335; \nTry looking for some recipes&#128522;</string>
 
     <!-- Recipe item on Adapter -->
     <string name="item_recipe_serving">%1$d \nServings</string>
-    <string name="item_recipe_ready_time">%1$s \nfor cooking</string>
+    <string name="item_recipe_ready_time">%1$s \ncooking</string>
     <string name="recipe_pill_cook_time">%1$s \nCook</string>
     <string name="recipe_pill_srvings">%1$s \nServ.</string>
     <string name="recipe_pill_carbs">%1$s \nCarbs</string>

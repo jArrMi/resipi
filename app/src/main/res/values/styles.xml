@@ -9,6 +9,10 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/drawable_launch_screen</item>
+    </style>
+
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ProgressBarTheme" parent="Theme.MaterialComponents.Light">
@@ -20,12 +24,6 @@
         <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
         <item name="android:textColor">@color/title_color</item>
         <item name="android:maxLines">2</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="AppTheme.CardHeader" parent="TextAppearance.MdcTypographyStyles.Headline6">
-        <item name="android:layout_marginTop">@dimen/dimen_15dp</item>
-        <item name="android:textColor">@color/title_color</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -64,6 +62,48 @@
         <item name="android:layout_marginEnd">@dimen/dimen_15dp</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:maxLines">2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.CardTitle" parent="TextAppearance.MdcTypographyStyles.Headline6">
+        <item name="android:layout_marginTop">@dimen/dimen_2dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_16dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/colorHokeyPokey</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.EmptyState" parent="TextAppearance.MdcTypographyStyles.Headline6">
+        <item name="android:layout_marginTop">@dimen/dimen_10dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_16dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/colorHokeyPokey</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.CardLabelServings" parent="TextAppearance.MdcTypographyStyles.Overline">
+        <item name="android:layout_marginTop">@dimen/dimen_8dp</item>
+        <item name="android:drawablePadding">@dimen/dimen_2dp</item>
+        <item name="android:drawableTint">@color/colorHokeyPokey</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/colorHokeyPokey</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.CardLabelCookingTime" parent="AppTheme.CardLabelServings">
+        <item name="android:layout_marginTop">@dimen/dimen_8dp</item>
+        <item name="android:layout_marginEnd">@dimen/dimen_16dp</item>
+        <item name="android:layout_marginStart">@dimen/dimen_16dp</item>
+        <item name="android:drawablePadding">@dimen/dimen_5dp</item>
+        <item name="android:drawableTint">@color/colorHokeyPokey</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/colorHokeyPokey</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>

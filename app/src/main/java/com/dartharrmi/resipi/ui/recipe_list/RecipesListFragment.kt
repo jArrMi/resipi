@@ -39,7 +39,12 @@ class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
 
     override fun getVariablesToBind(): Map<Int, Any> = emptyMap()
 
-    override fun initObservers() {
+    override fun initObservers() = Unit
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        requireActivity().setTheme(R.style.AppTheme)
+
+        super.onCreate(savedInstanceState)
     }
 
     @ExperimentalPagingApi
@@ -102,6 +107,7 @@ class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
             svSearchRecipe.setOnQueryTextListener(object: OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     this@RecipesListFragment.query = query.orEmpty()
+                    emptyState.gone()
                     search(query.orEmpty())
                     requireActivity().hideKeyBoard()
 
