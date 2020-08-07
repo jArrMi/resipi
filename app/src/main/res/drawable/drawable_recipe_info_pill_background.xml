@@ -9,7 +9,7 @@
         android:topLeftRadius="@dimen/dimen_30dp"
         android:topRightRadius="@dimen/dimen_30dp" />
 
-    <solid android:color="@color/colorPrimary" />
+    <solid android:color="@color/colorEnergyYellow" />
 
     <padding
         android:bottom="@dimen/dimen_0dp"

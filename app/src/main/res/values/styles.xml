@@ -1,17 +1,18 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorEnergyYellow</item>
+        <item name="colorPrimaryDark">@color/colorHokeyPokey</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="textInputStyle">@style/AppTheme.SearchView</item>
     </style>
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="ProgressBarTheme" parent="Theme.AppCompat.Light">
+    <style name="ProgressBarTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorAccent">@color/colorBrightYellow</item>
     </style>
 
@@ -20,6 +21,12 @@
         <item name="android:layout_marginStart">@dimen/dimen_15dp</item>
         <item name="android:textColor">@color/title_color</item>
         <item name="android:maxLines">2</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.CardHeader" parent="TextAppearance.MdcTypographyStyles.Headline6">
+        <item name="android:layout_marginTop">@dimen/dimen_15dp</item>
+        <item name="android:textColor">@color/title_color</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -59,5 +66,9 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:maxLines">2</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.SearchView" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxStrokeColor">@color/colorHokeyPokey</item>
     </style>
 </resources>
