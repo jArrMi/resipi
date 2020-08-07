@@ -5,8 +5,11 @@ import com.dartharrmi.resipi.BuildConfig
 import com.dartharrmi.resipi.domain.Recipe
 import com.dartharrmi.resipi.domain.exceptions.RecipesNotfoundException
 import com.dartharrmi.resipi.repositories.ISpoonacularDataSource.Repository
-import com.dartharrmi.resipi.usecases.IGetRecipesUseCase
 import com.dartharrmi.resipi.utils.ResipiLog
+import com.dartharrmi.resipi.utils.Utils.SIZE_100_X_100
+import com.dartharrmi.resipi.utils.Utils.SIZE_636_X_393
+import com.dartharrmi.resipi.utils.Utils.getIngredientUrl
+import com.dartharrmi.resipi.utils.Utils.getRecipeUrl
 import com.dartharrmi.resipi.utils.applyIoMain
 import com.dartharrmi.resipi.webservice.dto.response.GetRecipeIngredientsDTO
 import com.dartharrmi.resipi.webservice.dto.response.toDomain
@@ -45,16 +48,10 @@ class RecipePagingSource(private val query: String, private val repository: Repo
                             .map { t: GetRecipeIngredientsDTO -> t.toDomain() }
                             .map { ingredientsResponse ->
                                 ingredientsResponse.ingredients.forEach {
-                                    it.image = IGetRecipesUseCase.getIngredientUrl(
-                                            IGetRecipesUseCase.SIZE_100_X_100,
-                                            it.image
-                                    )
+                                    it.image = getIngredientUrl(SIZE_100_X_100, it.image)
                                 }
                                 recipe.apply {
-                                    image = IGetRecipesUseCase.getRecipeUrl(
-                                            this.id,
-                                            IGetRecipesUseCase.SIZE_636_X_393
-                                    )
+                                    image = getRecipeUrl(this.id, SIZE_636_X_393)
                                     ingredients = ingredientsResponse.ingredients
                                 }
                             }
