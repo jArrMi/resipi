@@ -4,22 +4,20 @@
     <color name="colorHokeyPokey">#C3A624</color>
     <color name="colorAccent">#03DAC5</color>
 
-    <color name="title_color">#000000</color>
-    <color name="subtitle_color">#A6000000</color>
+    <color name="colorTitle">#000000</color>
+    <color name="colorSubtitle">#A6000000</color>
 
     <color name="colorViewGrey">#ff989898</color>
     <color name="colorWhite">@android:color/white</color>
-    <color name="colorBackground">#E9E9ED</color>
+    <color name="colorAthensGray">#E9E9ED</color>
     <color name="colorStrokeLine">@color/colorHokeyPokey</color>
 
     <!-- LoadingView START-->
     <color name="colorLoadingTranslucent">#B000</color>
-    <color name="colorBrightYellow">#ffab00</color>
+    <color name="colorWebOrange">#ffab00</color>
     <!-- LoadingView END -->
 
     <!-- Recipe Item -->
-    <color name="list_item_bg_collapsed">#F9F9F9</color>
-    <color name="list_item_bg_expanded">@android:color/white</color>
-    <color name="list_item_fg">#aa7CDDE7</color>
+    <color name="colorAlabastera">#F9F9F9</color>
     <!-- List Item -->
 </resources>

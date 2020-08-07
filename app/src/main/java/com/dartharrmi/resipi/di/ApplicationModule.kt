@@ -1,5 +1,6 @@
 package com.dartharrmi.resipi.di
 
+import com.dartharrmi.resipi.di.data.LocalStorageModule
 import com.dartharrmi.resipi.di.data.RepositoriesModule
 import com.dartharrmi.resipi.di.data.WebserviceModule
 import com.dartharrmi.resipi.di.domain.UseCasesModule
@@ -11,14 +12,16 @@ import com.dartharrmi.resipi.di.presentation.ViewModelsModule
 object ApplicationModule {
 
     private val coreModules = listOf(
-            WebserviceModule.module,
-            RxModule.module,
-            RepositoriesModule.module
+        WebserviceModule.module,
+        RxModule.module,
+        RepositoriesModule.module,
+        LocalStorageModule.module
+
     )
 
     private val resipiModules = listOf(
-            UseCasesModule.module,
-            ViewModelsModule.module
+        UseCasesModule.module,
+        ViewModelsModule.module
     )
 
     val applicationModules = coreModules + resipiModules

@@ -30,7 +30,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
-            app:cardBackgroundColor="@color/list_item_bg_collapsed"
+            app:cardBackgroundColor="@color/colorAlabastera"
             app:cardCornerRadius="@dimen/dimen_6dp"
             app:cardElevation="@dimen/dimen_5dp"
             app:cardMaxElevation="@dimen/dimen_5dp"

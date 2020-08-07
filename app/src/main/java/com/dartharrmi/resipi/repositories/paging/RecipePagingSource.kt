@@ -54,10 +54,18 @@ class RecipePagingSource(private val query: String, private val repository: Repo
                                     image = getRecipeUrl(this.id, SIZE_636_X_393)
                                     ingredients = ingredientsResponse.ingredients
                                 }
+                                return@map recipe
                             }
                 }
                 .toList()
-                .map { t: MutableList<Recipe> -> toLoadResult(t) }
+                .map { t: MutableList<Recipe> ->
+                    repository.saveRecipes(t).applyIoMain().doOnComplete {
+                        ResipiLog.LOGE(tag, "An error happened saving the recipe")
+                    }.doOnError {
+                        ResipiLog.LOGE(tag, "An error happened saving the recipe", it)
+                    }
+                    toLoadResult(t)
+                }
                 .doOnError { t -> ResipiLog.LOGE(tag, "An error happened retrieving the recipes", t) }
                 .onErrorReturn { t: Throwable -> LoadResult.Error(t) }
     }

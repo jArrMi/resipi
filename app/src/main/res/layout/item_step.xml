@@ -42,7 +42,7 @@
             android:layout_marginTop="@dimen/dimen_15dp"
             android:layout_marginEnd="@dimen/dimen_30dp"
             android:orientation="vertical"
-            app:cardBackgroundColor="@color/list_item_bg_collapsed"
+            app:cardBackgroundColor="@color/colorAlabastera"
             app:cardCornerRadius="@dimen/dimen_5dp"
             app:cardElevation="@dimen/dimen_5dp"
             app:cardMaxElevation="@dimen/dimen_5dp"

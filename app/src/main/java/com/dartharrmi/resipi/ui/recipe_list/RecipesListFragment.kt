@@ -20,9 +20,12 @@ import com.dartharrmi.resipi.ui.recipe_list.adapter.RecipesAdapter
 import com.dartharrmi.resipi.utils.gone
 import com.dartharrmi.resipi.utils.hideKeyBoard
 import com.dartharrmi.resipi.utils.visible
+import kotlinx.android.synthetic.main.fragment_recipe_list.*
 import kotlinx.android.synthetic.main.fragment_recipe_list.view.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.HttpException
+import java.io.IOException
 
 class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
 
@@ -76,10 +79,17 @@ class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
                         ?: loadState.source.prepend as? LoadState.Error
                         ?: loadState.append as? LoadState.Error
                         ?: loadState.prepend as? LoadState.Error
+                        ?: loadState.refresh as? LoadState.Error
                 errorState?.let {
+                    val text = if (it.error is IOException) {
+                        getString(R.string.internet_error)
+                    } else {
+                        it.error
+                    }
+
                     Toast.makeText(
                             requireContext(),
-                            "\uD83D\uDE28 Wooops ${it.error}",
+                            "\uD83D\uDE28 Wooops! ${text}",
                             Toast.LENGTH_LONG
                     ).show()
                 }
@@ -116,6 +126,14 @@ class RecipesListFragment: ResipiFragment<FragmentRecipeListBinding>() {
 
                 override fun onQueryTextChange(newText: String?): Boolean = false
             })
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (recipesAdapter.itemCount > 0) {
+            emptyState.gone()
         }
     }
 
