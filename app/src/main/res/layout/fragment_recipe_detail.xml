@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="recipeBinder"
             type="com.dartharrmi.resipi.ui.recipe_detail.RecipeDetailViewBinder" />
@@ -70,6 +72,7 @@
                     android:paddingBottom="@dimen/dimen_15dp">
 
                     <TextView
+
                         android:id="@+id/recipeTitle"
                         style="@style/AppTheme.DetailHeader"
                         android:layout_width="wrap_content"
@@ -79,6 +82,48 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Recipe Title" />
 
+                    <ImageView
+                        android:id="@+id/recipeGlutenFree"
+                        android:layout_width="@dimen/dimen_20dp"
+                        android:layout_height="@dimen/dimen_20dp"
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginBottom="@dimen/dimen_8dp"
+                        android:onClick="@{recipeBinder::onGlutenFreeClick}"
+                        android:src="@drawable/ic_gluten_free"
+                        android:tint="@color/colorHokeyPokey"
+                        android:visibility="@{recipeBinder.gluteFree ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="@id/recipeTitle"
+                        app:layout_constraintStart_toEndOf="@id/recipeTitle"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/recipeVeggie"
+                        android:layout_width="@dimen/dimen_20dp"
+                        android:layout_height="@dimen/dimen_20dp"
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginBottom="@dimen/dimen_8dp"
+                        android:onClick="@{recipeBinder::onVeganClick}"
+                        android:src="@drawable/ic_veggie"
+                        android:tint="@color/colorHokeyPokey"
+                        android:visibility="@{recipeBinder.veggie ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="@id/recipeTitle"
+                        app:layout_constraintStart_toEndOf="@id/recipeGlutenFree"
+                        tools:ignore="ContentDescription" />
+
+                    <ImageView
+                        android:id="@+id/recipeDairyFree"
+                        android:layout_width="@dimen/dimen_20dp"
+                        android:layout_height="@dimen/dimen_20dp"
+                        android:layout_marginStart="@dimen/dimen_10dp"
+                        android:layout_marginBottom="@dimen/dimen_8dp"
+                        android:onClick="@{recipeBinder::onDairyFreeClick}"
+                        android:src="@drawable/ic_dairy_free"
+                        android:tint="@color/colorHokeyPokey"
+                        android:visibility="@{recipeBinder.dairyFree ? View.VISIBLE : View.GONE}"
+                        app:layout_constraintBottom_toBottomOf="@id/recipeTitle"
+                        app:layout_constraintStart_toEndOf="@id/recipeVeggie"
+                        tools:ignore="ContentDescription" />
+
                     <com.dartharrmi.resipi.ui.views.RecipePillInfoView
                         android:id="@+id/recipeServings"
                         android:layout_width="wrap_content"
@@ -87,6 +132,7 @@
                         android:layout_marginTop="@dimen/dimen_8dp"
                         app:layout_constraintEnd_toStartOf="@+id/recipeReadyTime"
                         app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/recipeTitle"
                         rsp:pillIcon="@drawable/ic_recipe_serving"
@@ -97,11 +143,41 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_8dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintEnd_toStartOf="@+id/recipeCalories"
                         app:layout_constraintStart_toEndOf="@+id/recipeServings"
                         app:layout_constraintTop_toBottomOf="@id/recipeTitle"
                         rsp:pillIcon="@drawable/ic_recipe_ready_time_3" />
+
+                    <com.dartharrmi.resipi.ui.views.RecipePillInfoView
+                        android:id="@+id/recipeCalories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        app:layout_constraintEnd_toStartOf="@+id/recipeCarbs"
+                        app:layout_constraintStart_toEndOf="@+id/recipeReadyTime"
+                        app:layout_constraintTop_toBottomOf="@id/recipeTitle"
+                        rsp:pillIcon="@drawable/ic_caloric_breakdown" />
+
+                    <com.dartharrmi.resipi.ui.views.RecipePillInfoView
+                        android:id="@+id/recipeCarbs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        app:layout_constraintEnd_toStartOf="@+id/recipeFat"
+                        app:layout_constraintStart_toEndOf="@+id/recipeCalories"
+                        app:layout_constraintTop_toBottomOf="@id/recipeTitle"
+                        rsp:pillIcon="@drawable/ic_caloric_breakdown" />
+
+                    <com.dartharrmi.resipi.ui.views.RecipePillInfoView
+                        android:id="@+id/recipeFat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_8dp"
+                        android:layout_marginEnd="@dimen/dimen_15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/recipeCarbs"
+                        app:layout_constraintTop_toBottomOf="@id/recipeTitle"
+                        rsp:pillIcon="@drawable/ic_caloric_breakdown" />
 
                     <TextView
                         android:id="@+id/recipeSummaryLabel"
@@ -163,6 +239,7 @@
                         android:layout_marginStart="@dimen/dimen_15dp"
                         android:layout_marginEnd="@dimen/dimen_15dp"
                         android:nestedScrollingEnabled="true"
+                        android:visibility="@{recipeBinder.showStepsList ? View.VISIBLE : View.GONE}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/recipeStepsLabel" />
 
@@ -175,7 +252,7 @@
                         android:layout_marginEnd="@dimen/dimen_15dp"
                         android:nestedScrollingEnabled="true"
                         android:text="@string/recipe_detail_no_steps"
-                        android:visibility="gone"
+                        android:visibility="@{!recipeBinder.showStepsList ? View.VISIBLE : View.GONE}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/recipeStepsLabel" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
