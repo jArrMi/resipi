@@ -3,6 +3,7 @@
 
     <string name="search_view_hint">Let\'s find some recipes…</string>
     <string name="empty_state">Don\'t you know what to cook? &#129335; \nTry looking for some recipes&#128522;</string>
+    <string name="internet_error">Looks like you don\'t have Internet, please check your connection and try again.</string>
 
     <!-- Recipe item on Adapter -->
     <string name="item_recipe_serving">%1$d \nServings</string>
