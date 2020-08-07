@@ -68,9 +68,16 @@ This project follow a single Activity pattern and Jetpack Navigation in order to
 * **Windows:** gradlew assembleDebug --stacktrace
 * **macOS & Linux:** ./gradlew assembleDebug --stacktrace
 
-# 4. CI
+# 4. Build
+Just clone the main branch and import the project to Android Studio, wait for thee IDE to finish building the project and hit run 🧑🏻‍💻
+
+# 5. CI
 This projects includes integration with Github Actions, everytime a pull is merged to the main branch, a new job triggers run the unit test and builds a new APK
 
+# 6. Design
+Inspirations for the design and animations came from:
+   * https://www.behance.net/gallery/96301779/Mobile-App-Food-Recipe-Application
+   * https://dribbble.com/shots/2940944--5-Filters
 
 # References
 
@@ -85,3 +92,7 @@ This projects includes integration with Github Actions, everytime a pull is merg
     * [Uncle Bob](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 * Getting on the same page with Paging 3 by [@FMuntenescu](https://www.twitter.com/⁦FMuntenescu): [Getting on the same page with Paging 3](https://android-developers.googleblog.com/2020/07/getting-on-same-page-with-paging-3.html)
+
+* [Custom bottom sheet](https://github.com/miguelhincapie/CustomBottomSheetBehavior)
+
+* [Cliping methods on Android](https://github.com/DmitriyG1/android-clipping-demo)
