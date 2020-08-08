@@ -1,5 +1,5 @@
 # Resepi - Sample Reference Project
-Pronouns like `ˈresəˌpē`, is a sample application showcasing how to use clean architecture and MVVM on Android using RxJava & RxAndroid.
+Pronounced as `ˈresəˌpē`, is a sample application showcasing how to use clean architecture and MVVM on Android using RxJava & RxAndroid.
 
 ![Resepi Demo](https://raw.githubusercontent.com/dartharrmi/resipi/main/media/20200807_131233_edited.2020-08-07%2020_41_41.gif)
 
@@ -65,6 +65,9 @@ This project follow a single Activity pattern and Jetpack Navigation in order to
     * See [Databinding](https://developer.android.com/topic/libraries/data-binding)
 * **Picasso:** Picasso allows for hassle-free image loading in your application—often in one line of code!
     * See: [Picasso](https://square.github.io/picasso/)
+* **Lottie:**
+    * See: [Lottie](https://github.com/airbnb/lottie-android)
+    * See: [Lottiefiles](https://lottiefiles.com/)
 
 # 3. Unit test
 * **Windows:** gradlew assembleDebug --stacktrace
@@ -99,7 +102,7 @@ Inspirations for the design and animations came from:
 
 * [Cliping methods on Android](https://github.com/DmitriyG1/android-clipping-demo)
 
-* Animation sources by (animoox)[https://lottiefiles.com/animoox]
+* Animation sources by [animoox](https://lottiefiles.com/animoox)
 
 * Free icons by:
    * http://danielbruce.se/
