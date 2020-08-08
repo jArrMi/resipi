@@ -1,6 +1,7 @@
 package com.dartharrmi.resipi.webservice
 
 import com.dartharrmi.resipi.webservice.deserializer.InstructionsDeserializer
+import com.dartharrmi.resipi.webservice.exception.BaseUrlNotProvidedException
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -29,7 +30,7 @@ object ResipiNetwork {
     @JvmOverloads
     fun createRetrofit(baseUrl: String, okHttpClient: OkHttpClient, builder: Retrofit.Builder = Retrofit.Builder()): Retrofit {
         if (baseUrl.isEmpty()) {
-            throw IllegalArgumentException(BASE_URL_NOT_PROVIDED_MESSAGE)
+            throw BaseUrlNotProvidedException(BASE_URL_NOT_PROVIDED_MESSAGE)
         }
 
         val customGson = GsonBuilder().apply {

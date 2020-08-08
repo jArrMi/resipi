@@ -1,6 +1,8 @@
 # Resepi - Sample Reference Project
 Pronouns like `ˈresəˌpē`, is a sample application showcasing how to use clean architecture and MVVM on Android using RxJava & RxAndroid.
 
+![Resepi Demo](media/resepi_gif.gif)
+
 # 1. Architecture
 
 ## 1.1 Clean Architecture

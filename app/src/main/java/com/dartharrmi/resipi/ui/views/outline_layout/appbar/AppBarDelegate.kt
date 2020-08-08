@@ -3,6 +3,7 @@ package com.dartharrmi.resipi.ui.views.outline_layout.appbar
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import com.dartharrmi.resipi.utils.ResipiLog
 import com.google.android.material.appbar.AppBarLayout
 
 class AppBarDelegate(
@@ -36,7 +37,7 @@ class AppBarDelegate(
         if (appBar != null) {
             registerAppBarLayoutObserver(appBar)
         } else {
-            Log.e("AppBarDelegate", "Warning! AppBarLayout not found")
+            ResipiLog.LOGE("AppBarDelegate", "Warning! AppBarLayout not found")
         }
     }
 

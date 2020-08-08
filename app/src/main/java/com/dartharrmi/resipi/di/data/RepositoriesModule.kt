@@ -11,7 +11,7 @@ object RepositoriesModule {
     val module = module {
 
         // Spoonocular Repository
-        single<ISpoonacularDataSource.Local> { SpoonacularLocalDataSource(get()/*, get(), get()*/) }
+        single<ISpoonacularDataSource.Local> { SpoonacularLocalDataSource(get()) }
         single<ISpoonacularDataSource.Remote> { SpoonacularRemoteDataSource() }
         single<ISpoonacularDataSource.Repository> { SpoonacularRepository(get(), get()) }
     }
