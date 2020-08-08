@@ -59,26 +59,6 @@ abstract class ResipiActivity<DB : ViewDataBinding> : AppCompatActivity(), IBase
 
     override fun isActive(): Boolean = !isFinishing
 
-    /*fun showAlert(text: String, yesCallback: () -> Unit = {}, cancelCallback: () -> Unit = {}) {
-        if (isActive()) {
-            alert(text) {
-                isCancelable = false
-                onCancelled { cancelCallback.invoke() }
-                yesButton { yesCallback.invoke() }
-            }.show()
-        }
-    }
-
-    fun showAlertWithTitle(title: CharSequence? = null, text: String, yes: Int = android.R.string.yes, yesCallback: () -> Unit = {}, cancelCallback: () -> Unit = {}) {
-        if (isActive()) {
-            alert(text, title = title) {
-                isCancelable = false
-                onCancelled { cancelCallback.invoke() }
-                positiveButton(yes) { yesCallback.invoke() }
-            }.show()
-        }
-    }*/
-
     override fun getViewContext(): Context = this
 
     override fun showLoading() = loadingView.showLoading(window)

@@ -17,17 +17,6 @@ object ResipiLog {
 
     private const val MAX_LOG_TAG_LENGTH = 23
 
-    /**
-     * By default, the logging is disabled for release builds only, here you can specify a custom condition for disable
-     * the logging, for instance in specific flavors build. Be sure to call this method in your [android.app.Application.onCreate] method.
-     *
-     * <pre>
-     * override fun onCreate() {
-     *      super.onCreate()
-     *      YpLog.initialize(forceDisable = uildConfig.FLAVOR.equals("prod") || BuildConfig.FLAVOR.equals("stg"))
-     * }
-     * </pre>
-     */
     @JvmStatic
     @JvmOverloads
     fun initialize(forceDisable: Boolean = false, prefix: String) {
